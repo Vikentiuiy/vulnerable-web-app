@@ -1,9 +1,12 @@
 # Planted vulnerabilities
 
-28 distinct, **exploitable** vulnerabilities (36 tagged sink locations) across
+40 distinct, **exploitable** vulnerabilities (52 tagged sink locations) across
 Java (Spring Boot), JavaScript (browser), and SQL. Every sink is marked in the
 source with a `VULN:VULN-xx:CWE-nnn` comment so the ground-truth `reference.sarif`
 can be generated straight from the code (`checker/build_reference.py`).
+
+Watch them get exploited live on the dashboard: <http://localhost:8080/dashboard>
+(🟢 green = not exploited → 🔴 red = exploited).
 
 | ID | CWE | Class | Location(s) | Exploitable via |
 |----|-----|-------|-------------|-----------------|
@@ -35,17 +38,42 @@ can be generated straight from the code (`checker/build_reference.py`).
 | VULN-26 | CWE-79 | DOM-based XSS | `static/js/app.js:12,18` | `/welcome.html#...`, `?q=` |
 | VULN-27 | CWE-798 | Hard-coded API Key in JS | `static/js/app.js:3` | browser source |
 | VULN-28 | CWE-95 | Client-side `eval()` Code Injection | `static/js/app.js:22` | `/welcome.html?calc=` |
+| VULN-29 | CWE-915 | Mass Assignment (role escalation) | `ExtraVulnsController.java:46` | `POST /api/register` |
+| VULN-30 | CWE-307 | No Rate Limiting (brute force) | `AuthController.java:26,45` | `POST /login` (×N) |
+| VULN-31 | CWE-347 | JWT Signature Not Verified (alg:none) | `ExtraVulnsController.java:68` | `GET /api/jwt/whoami` |
+| VULN-32 | CWE-917 | EL / SpEL Injection | `ExtraVulnsController.java:82` | `GET /api/eval?expr=` |
+| VULN-33 | CWE-1236 | CSV / Formula Injection | `ExtraVulnsController.java:94` | `GET /api/export?note=` |
+| VULN-34 | CWE-942 | Insecure CORS (reflect + credentials) | `ExtraVulnsController.java:106` | `GET /api/data` (Origin) |
+| VULN-35 | CWE-1021 | Clickjacking (no X-Frame-Options) | `application.properties:18` | any response |
+| VULN-36 | CWE-190 | Integer Overflow (order total) | `ExtraVulnsController.java:117` | `GET /api/order?price=&qty=` |
+| VULN-37 | CWE-643 | XPath Injection | `ExtraVulnsController.java:138` | `GET /api/xlookup?user=` |
+| VULN-38 | CWE-1333 | ReDoS (catastrophic regex) | `ExtraVulnsController.java:155` | `GET /api/validate?email=` |
+| VULN-39 | CWE-117 | Log Injection (CRLF) | `ExtraVulnsController.java:174` | `GET /api/note?text=` |
+| VULN-40 | CWE-384 | Session Fixation | `ExtraVulnsController.java:187` | `GET /api/setsession?sid=` |
+
+## Exploit chains
+
+Several items compose into chains (demonstrated by the dashboard's evidence column):
+
+- **SQLi → hash dump → offline crack → login**: VULN-01 (UNION) dumps the unsalted
+  MD5 (VULN-19), which is cracked (VULN-13 → `admin123`) to authenticate for real.
+- **SQLi → cleartext secrets**: VULN-01 also dumps `secret_answer` (VULN-20) and the
+  DB user's over-broad privileges from `information_schema` (VULN-21).
+- **Predictable token**: VULN-18's session token is recomputed from
+  `username.hashCode()` and matched against the issued cookie (VULN-17).
+- **Mass assignment → privilege escalation**: VULN-29 self-registers an `admin`, whose
+  critical `/admin/*` functions need no auth (VULN-15) and accept a hard-coded token (VULN-14).
 
 ## Language coverage
 
-- **Java / Spring Boot** — VULN-01…18, 22, 23, 24, 25 (server-side sinks)
+- **Java / Spring Boot** — VULN-01…18, 22, 23, 24, 25, 29…40 (server-side sinks)
 - **SQL** — VULN-19, 20, 21 (insecure schema, storage, privileges)
 - **JavaScript (browser)** — VULN-26, 27, 28 (DOM XSS, secret leakage, eval)
 
 ## Ground truth
 
 `checker/reference.sarif` is generated from the markers above by
-`checker/build_reference.py`. It contains **36 results** (one per sink location).
+`checker/build_reference.py`. It contains **52 results** (one per sink location).
 A SAST tool is scored against it with `checker/sast_checker.py` — see the top-level
 `README.md`.
 

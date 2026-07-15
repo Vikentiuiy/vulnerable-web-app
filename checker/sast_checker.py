@@ -180,6 +180,9 @@ RULE_NAME_TO_CWE = {
     "switch fall-through": ["CWE-484"],
     "reachable assertion": ["CWE-617"],
     "security check via assert": ["CWE-617"],
+    "csv injection": ["CWE-1236"],
+    "formula injection": ["CWE-1236"],
+    "improper neutralization of formula elements in a csv file": ["CWE-1236"],
 }
 
 

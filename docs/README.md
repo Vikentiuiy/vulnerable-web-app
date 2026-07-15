@@ -1,7 +1,7 @@
 # Docs
 
 - [`../VULNERABILITIES.md`](../VULNERABILITIES.md) — the full list of planted
-  vulnerabilities (28 items / 36 sink locations) with CWE, location and entry point.
+  vulnerabilities (40 items / 52 sink locations) with CWE, location and entry point.
 - [`architecture.md`](architecture.md) — how the app is structured (tiers,
   controllers, data model, Docker layout).
 - [`exploitation-guide.md`](exploitation-guide.md) — copy-paste `curl` exploits

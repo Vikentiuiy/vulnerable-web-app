@@ -2,6 +2,7 @@ package com.example.vulnapp.controller;
 
 import com.example.vulnapp.util.CryptoUtil;
 import com.example.vulnapp.util.Db;
+import com.example.vulnapp.util.ExploitTracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Authentication endpoints.
@@ -20,10 +22,14 @@ import java.util.Map;
 public class AuthController {
 
     private final Db db;
+    private final ExploitTracker tracker;
+    // VULN:VULN-30:CWE-307 no lockout/throttle — attempts are just counted, never limited
+    private final AtomicInteger loginAttempts = new AtomicInteger();
 
     @Autowired
-    public AuthController(Db db) {
+    public AuthController(Db db, ExploitTracker tracker) {
         this.db = db;
+        this.tracker = tracker;
     }
 
     /**
@@ -36,6 +42,12 @@ public class AuthController {
                                      HttpServletResponse response,
                                      HttpSession session) {
         Map<String, Object> out = new HashMap<>();
+        // VULN:VULN-30:CWE-307 unlimited authentication attempts (brute-force enabler)
+        int attempts = loginAttempts.incrementAndGet();
+        if (attempts > 10) {
+            tracker.mark("VULN-30", attempts + " login attempts accepted with no lockout");
+        }
+        boolean injected = username.contains("'") || username.contains("--") || username.matches("(?i).*\\bor\\b.*");
         try (java.sql.Connection conn = db.getConnection();
              Statement st = conn.createStatement()) {
             String hash = CryptoUtil.md5(password);
@@ -56,6 +68,9 @@ public class AuthController {
                 c.setPath("/");
                 response.addCookie(c);
 
+                if (injected) {
+                    tracker.mark("VULN-02", "auth bypass: logged in as " + user + " without a valid password");
+                }
                 out.put("status", "ok");
                 out.put("user", user);
                 out.put("role", role);
@@ -65,6 +80,7 @@ public class AuthController {
             }
         } catch (Exception e) {
             // VULN:VULN-16:CWE-209 raw exception detail returned to the client
+            tracker.mark("VULN-16", "stack trace / SQL error leaked: " + e.getClass().getSimpleName());
             out.put("status", "error");
             out.put("error", e.toString());
             out.put("query_hint", "SELECT id, username, role FROM users WHERE username = '" + username + "' ...");

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>VulnShop — exploitation dashboard</title>
+  <style>
+    body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; background: #0f1117; color: #e6e6e6; }
+    header { padding: 16px 24px; background: #161a23; border-bottom: 1px solid #262b36; position: sticky; top: 0; z-index: 5; }
+    h1 { margin: 0 0 4px; font-size: 20px; }
+    .sub { color: #8b93a7; font-size: 13px; }
+    .controls { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    button { background: #2d6cdf; color: #fff; border: 0; padding: 9px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+    button.secondary { background: #333a49; }
+    button:disabled { opacity: .5; cursor: default; }
+    #summary { font-weight: 600; margin-left: 8px; }
+    .pbar { height: 8px; background: #262b36; border-radius: 4px; overflow: hidden; flex: 1; min-width: 160px; }
+    #progress { height: 100%; width: 0; background: linear-gradient(90deg,#e0533d,#ff7a5c); transition: width .3s; }
+    main { padding: 16px 24px; display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    td { padding: 7px 8px; border-bottom: 1px solid #1e232e; vertical-align: middle; }
+    tr.cat td { background: #12151d; color: #6ea8ff; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; font-size: 11px; }
+    .id { white-space: nowrap; font-weight: 600; }
+    .cwe { color: #8b93a7; font-weight: 400; font-size: 11px; }
+    .title { }
+    .entry { color: #7b8296; font-family: monospace; font-size: 11px; margin-top: 2px; }
+    .bar { width: 190px; }
+    .track { background: #1e232e; border-radius: 5px; overflow: hidden; height: 24px; }
+    .fill { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #06210f; transition: background .3s; }
+    .fill.green { background: linear-gradient(90deg,#1f9d55,#2ec76f); color: #06210f; }
+    .fill.red { background: linear-gradient(90deg,#c0392b,#ff5a4d); color: #2a0705; }
+    .detail { color: #9aa3b5; font-family: monospace; font-size: 11px; max-width: 320px; word-break: break-word; }
+    aside { position: sticky; top: 120px; }
+    #log { background: #0a0c11; border: 1px solid #1e232e; border-radius: 6px; padding: 10px; height: 70vh; overflow: auto; white-space: pre-wrap; font-family: monospace; font-size: 12px; color: #9fb4d6; }
+    a { color: #6ea8ff; }
+    .warn { color: #ffb454; font-size: 12px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🔴 VulnShop — live exploitation dashboard</h1>
+  <div class="sub">Green = vulnerability not yet exploited · Red = exploited/confirmed. Marks are set by the real
+    sinks when attacked (PoC script, curl, or the button below). <a href="/">home</a></div>
+  <div class="controls">
+    <button id="launch">▶ Launch all exploits</button>
+    <button id="reset" class="secondary">Reset</button>
+    <span id="summary">0 / 40 exploited</span>
+    <div class="pbar"><div id="progress"></div></div>
+  </div>
+  <div class="warn">⚠ Intentionally vulnerable lab. Runs real (benign) exploits against this instance only.</div>
+</header>
+<main>
+  <table>
+    <thead><tr><td class="id">ID</td><td>Vulnerability</td><td class="bar">Status</td><td>Evidence</td></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <aside>
+    <div style="margin-bottom:6px;color:#8b93a7;font-size:12px;">Activity log</div>
+    <div id="log"></div>
+  </aside>
+</main>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -58,6 +58,18 @@ CWE_NAMES = {
     "CWE-601": "Open Redirect",
     "CWE-470": "Unsafe Reflection",
     "CWE-95":  "Code Injection (eval)",
+    "CWE-915": "Mass Assignment",
+    "CWE-307": "Improper Restriction of Excessive Authentication Attempts",
+    "CWE-347": "Improper Verification of Cryptographic Signature (JWT)",
+    "CWE-917": "Expression Language Injection",
+    "CWE-1236": "Improper Neutralization of Formula Elements in a CSV File",
+    "CWE-942": "Overly Permissive Cross-domain Whitelist (CORS)",
+    "CWE-1021": "Improper Restriction of Rendered UI Layers (Clickjacking)",
+    "CWE-190": "Integer Overflow or Wraparound",
+    "CWE-643": "XPath Injection",
+    "CWE-1333": "Inefficient Regular Expression Complexity (ReDoS)",
+    "CWE-117": "Improper Output Neutralization for Logs",
+    "CWE-384": "Session Fixation",
 }
 
 

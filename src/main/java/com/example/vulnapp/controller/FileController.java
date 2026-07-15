@@ -1,5 +1,7 @@
 package com.example.vulnapp.controller;
 
+import com.example.vulnapp.util.ExploitTracker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,13 @@ public class FileController {
 
     private static final String BASE_DIR = "/app/data/";
 
+    private final ExploitTracker tracker;
+
+    @Autowired
+    public FileController(ExploitTracker tracker) {
+        this.tracker = tracker;
+    }
+
     /**
      * Download a file by name. The name is joined to BASE_DIR with no
      * canonicalisation, so `../../secret.txt` escapes the directory.
@@ -27,6 +36,9 @@ public class FileController {
         // VULN:VULN-06:CWE-22 path traversal — user input concatenated into a filesystem path
         File f = new File(BASE_DIR + name);
         byte[] data = Files.readAllBytes(f.toPath());
+        if (name.contains("..") || name.startsWith("/")) {
+            tracker.mark("VULN-06", "path traversal read outside base dir: " + f.getPath());
+        }
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(data);
@@ -43,6 +55,7 @@ public class FileController {
         Path dest = Paths.get(BASE_DIR, filename);
         Files.createDirectories(dest.getParent());
         Files.write(dest, file.getBytes());
+        tracker.mark("VULN-07", "stored unrestricted upload: " + filename + " (" + file.getSize() + " bytes)");
         return "{\"status\":\"stored\",\"path\":\"" + dest + "\"}";
     }
 }

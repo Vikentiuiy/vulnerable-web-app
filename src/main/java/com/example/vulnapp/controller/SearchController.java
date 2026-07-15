@@ -1,6 +1,7 @@
 package com.example.vulnapp.controller;
 
 import com.example.vulnapp.util.Db;
+import com.example.vulnapp.util.ExploitTracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,15 +23,23 @@ import java.util.LinkedHashMap;
 public class SearchController {
 
     private final Db db;
+    private final ExploitTracker tracker;
 
     @Autowired
-    public SearchController(Db db) {
+    public SearchController(Db db, ExploitTracker tracker) {
         this.db = db;
+        this.tracker = tracker;
     }
 
     @GetMapping("/search")
     public String search(@RequestParam(defaultValue = "") String q, Model model) {
         List<Map<String, Object>> results = new ArrayList<>();
+        if (q.matches("(?is).*(union|select|--|'\\s*or|0x[0-9a-f]+|information_schema).*")) {
+            tracker.mark("VULN-01", "SQL injection payload processed in /search: " + q);
+        }
+        if (q.matches("(?is).*(<script|onerror=|onload=|<img|<svg).*")) {
+            tracker.mark("VULN-03", "reflected XSS payload echoed unescaped: " + q);
+        }
         try (java.sql.Connection conn = db.getConnection();
              Statement st = conn.createStatement()) {
             // VULN:VULN-01:CWE-89 SQL injection in product search (UNION-based extraction possible)
@@ -45,6 +54,7 @@ public class SearchController {
             }
         } catch (Exception e) {
             // VULN:VULN-16:CWE-209 SQL error text surfaced to the page
+            tracker.mark("VULN-16", "SQL error surfaced to page: " + e.getClass().getSimpleName());
             model.addAttribute("error", e.getMessage());
         }
         // VULN:VULN-03:CWE-79 reflected XSS: `q` is echoed into the page via th:utext (unescaped)
