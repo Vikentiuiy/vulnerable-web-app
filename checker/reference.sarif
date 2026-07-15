@@ -1,0 +1,1182 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "vulnerable-web-app-reference",
+          "informationUri": "https://github.com/Vikentiuiy/vulnerable-web-app",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "CWE-22",
+              "name": "Path Traversal",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "properties": {
+                "cwe": "CWE-22",
+                "tags": [
+                  "CWE-22"
+                ]
+              }
+            },
+            {
+              "id": "CWE-78",
+              "name": "OS Command Injection",
+              "shortDescription": {
+                "text": "OS Command Injection"
+              },
+              "properties": {
+                "cwe": "CWE-78",
+                "tags": [
+                  "CWE-78"
+                ]
+              }
+            },
+            {
+              "id": "CWE-79",
+              "name": "Cross-site Scripting",
+              "shortDescription": {
+                "text": "Cross-site Scripting"
+              },
+              "properties": {
+                "cwe": "CWE-79",
+                "tags": [
+                  "CWE-79"
+                ]
+              }
+            },
+            {
+              "id": "CWE-89",
+              "name": "SQL Injection",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "properties": {
+                "cwe": "CWE-89",
+                "tags": [
+                  "CWE-89"
+                ]
+              }
+            },
+            {
+              "id": "CWE-95",
+              "name": "Code Injection (eval)",
+              "shortDescription": {
+                "text": "Code Injection (eval)"
+              },
+              "properties": {
+                "cwe": "CWE-95",
+                "tags": [
+                  "CWE-95"
+                ]
+              }
+            },
+            {
+              "id": "CWE-200",
+              "name": "Information Exposure",
+              "shortDescription": {
+                "text": "Information Exposure"
+              },
+              "properties": {
+                "cwe": "CWE-200",
+                "tags": [
+                  "CWE-200"
+                ]
+              }
+            },
+            {
+              "id": "CWE-209",
+              "name": "Information Exposure Through Error Message",
+              "shortDescription": {
+                "text": "Information Exposure Through Error Message"
+              },
+              "properties": {
+                "cwe": "CWE-209",
+                "tags": [
+                  "CWE-209"
+                ]
+              }
+            },
+            {
+              "id": "CWE-256",
+              "name": "Plaintext Storage of a Password",
+              "shortDescription": {
+                "text": "Plaintext Storage of a Password"
+              },
+              "properties": {
+                "cwe": "CWE-256",
+                "tags": [
+                  "CWE-256"
+                ]
+              }
+            },
+            {
+              "id": "CWE-306",
+              "name": "Missing Authentication for Critical Function",
+              "shortDescription": {
+                "text": "Missing Authentication for Critical Function"
+              },
+              "properties": {
+                "cwe": "CWE-306",
+                "tags": [
+                  "CWE-306"
+                ]
+              }
+            },
+            {
+              "id": "CWE-312",
+              "name": "Cleartext Storage of Sensitive Information",
+              "shortDescription": {
+                "text": "Cleartext Storage of Sensitive Information"
+              },
+              "properties": {
+                "cwe": "CWE-312",
+                "tags": [
+                  "CWE-312"
+                ]
+              }
+            },
+            {
+              "id": "CWE-327",
+              "name": "Use of a Broken or Risky Cryptographic Algorithm",
+              "shortDescription": {
+                "text": "Use of a Broken or Risky Cryptographic Algorithm"
+              },
+              "properties": {
+                "cwe": "CWE-327",
+                "tags": [
+                  "CWE-327"
+                ]
+              }
+            },
+            {
+              "id": "CWE-329",
+              "name": "Not Using a Random IV with CBC Mode",
+              "shortDescription": {
+                "text": "Not Using a Random IV with CBC Mode"
+              },
+              "properties": {
+                "cwe": "CWE-329",
+                "tags": [
+                  "CWE-329"
+                ]
+              }
+            },
+            {
+              "id": "CWE-330",
+              "name": "Use of Insufficiently Random Values",
+              "shortDescription": {
+                "text": "Use of Insufficiently Random Values"
+              },
+              "properties": {
+                "cwe": "CWE-330",
+                "tags": [
+                  "CWE-330"
+                ]
+              }
+            },
+            {
+              "id": "CWE-434",
+              "name": "Unrestricted File Upload",
+              "shortDescription": {
+                "text": "Unrestricted File Upload"
+              },
+              "properties": {
+                "cwe": "CWE-434",
+                "tags": [
+                  "CWE-434"
+                ]
+              }
+            },
+            {
+              "id": "CWE-470",
+              "name": "Unsafe Reflection",
+              "shortDescription": {
+                "text": "Unsafe Reflection"
+              },
+              "properties": {
+                "cwe": "CWE-470",
+                "tags": [
+                  "CWE-470"
+                ]
+              }
+            },
+            {
+              "id": "CWE-502",
+              "name": "Deserialization of Untrusted Data",
+              "shortDescription": {
+                "text": "Deserialization of Untrusted Data"
+              },
+              "properties": {
+                "cwe": "CWE-502",
+                "tags": [
+                  "CWE-502"
+                ]
+              }
+            },
+            {
+              "id": "CWE-601",
+              "name": "Open Redirect",
+              "shortDescription": {
+                "text": "Open Redirect"
+              },
+              "properties": {
+                "cwe": "CWE-601",
+                "tags": [
+                  "CWE-601"
+                ]
+              }
+            },
+            {
+              "id": "CWE-611",
+              "name": "XML External Entity",
+              "shortDescription": {
+                "text": "XML External Entity"
+              },
+              "properties": {
+                "cwe": "CWE-611",
+                "tags": [
+                  "CWE-611"
+                ]
+              }
+            },
+            {
+              "id": "CWE-614",
+              "name": "Sensitive Cookie Without Secure/HttpOnly",
+              "shortDescription": {
+                "text": "Sensitive Cookie Without Secure/HttpOnly"
+              },
+              "properties": {
+                "cwe": "CWE-614",
+                "tags": [
+                  "CWE-614"
+                ]
+              }
+            },
+            {
+              "id": "CWE-639",
+              "name": "Authorization Bypass (IDOR)",
+              "shortDescription": {
+                "text": "Authorization Bypass (IDOR)"
+              },
+              "properties": {
+                "cwe": "CWE-639",
+                "tags": [
+                  "CWE-639"
+                ]
+              }
+            },
+            {
+              "id": "CWE-732",
+              "name": "Incorrect Permission Assignment",
+              "shortDescription": {
+                "text": "Incorrect Permission Assignment"
+              },
+              "properties": {
+                "cwe": "CWE-732",
+                "tags": [
+                  "CWE-732"
+                ]
+              }
+            },
+            {
+              "id": "CWE-798",
+              "name": "Use of Hard-coded Credentials",
+              "shortDescription": {
+                "text": "Use of Hard-coded Credentials"
+              },
+              "properties": {
+                "cwe": "CWE-798",
+                "tags": [
+                  "CWE-798"
+                ]
+              }
+            },
+            {
+              "id": "CWE-918",
+              "name": "Server-Side Request Forgery",
+              "shortDescription": {
+                "text": "Server-Side Request Forgery"
+              },
+              "properties": {
+                "cwe": "CWE-918",
+                "tags": [
+                  "CWE-918"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-256",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "[VULN-19] CWE-256: passwords stored as unsalted MD5 (see CryptoUtil.md5)"
+          },
+          "properties": {
+            "vulnId": "VULN-19",
+            "cwe": "CWE-256"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "db/init.sql"
+                },
+                "region": {
+                  "startLine": 10
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-312",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "text": "[VULN-20] CWE-312: secret answer kept in cleartext"
+          },
+          "properties": {
+            "vulnId": "VULN-20",
+            "cwe": "CWE-312"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "db/init.sql"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-732",
+          "ruleIndex": 20,
+          "level": "error",
+          "message": {
+            "text": "[VULN-21] CWE-732: application DB user granted full privileges on everything"
+          },
+          "properties": {
+            "vulnId": "VULN-21",
+            "cwe": "CWE-732"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "db/init.sql"
+                },
+                "region": {
+                  "startLine": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-306",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "[VULN-15] CWE-306: missing authentication for a critical function"
+          },
+          "properties": {
+            "vulnId": "VULN-15",
+            "cwe": "CWE-306"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/AdminController.java"
+                },
+                "region": {
+                  "startLine": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-78",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-05] CWE-78: OS command injection — host passed to a shell"
+          },
+          "properties": {
+            "vulnId": "VULN-05",
+            "cwe": "CWE-78"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/AdminController.java"
+                },
+                "region": {
+                  "startLine": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-918",
+          "ruleIndex": 22,
+          "level": "error",
+          "message": {
+            "text": "[VULN-10] CWE-918: SSRF — server fetches an arbitrary user-supplied URL"
+          },
+          "properties": {
+            "vulnId": "VULN-10",
+            "cwe": "CWE-918"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/AdminController.java"
+                },
+                "region": {
+                  "startLine": 47
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-502",
+          "ruleIndex": 15,
+          "level": "error",
+          "message": {
+            "text": "[VULN-08] CWE-502: deserialization of untrusted data (RCE via gadget chains)"
+          },
+          "properties": {
+            "vulnId": "VULN-08",
+            "cwe": "CWE-502"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ApiController.java"
+                },
+                "region": {
+                  "startLine": 32
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-611",
+          "ruleIndex": 17,
+          "level": "error",
+          "message": {
+            "text": "[VULN-09] CWE-611: XXE — external entity processing left enabled"
+          },
+          "properties": {
+            "vulnId": "VULN-09",
+            "cwe": "CWE-611"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ApiController.java"
+                },
+                "region": {
+                  "startLine": 49
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-601",
+          "ruleIndex": 16,
+          "level": "error",
+          "message": {
+            "text": "[VULN-24] CWE-601: open redirect — unvalidated redirect target"
+          },
+          "properties": {
+            "vulnId": "VULN-24",
+            "cwe": "CWE-601"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ApiController.java"
+                },
+                "region": {
+                  "startLine": 66
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-470",
+          "ruleIndex": 14,
+          "level": "error",
+          "message": {
+            "text": "[VULN-25] CWE-470: unsafe reflection — class name controlled by the user"
+          },
+          "properties": {
+            "vulnId": "VULN-25",
+            "cwe": "CWE-470"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ApiController.java"
+                },
+                "region": {
+                  "startLine": 79
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "[VULN-02] CWE-89: SQL injection in authentication (login bypass)"
+          },
+          "properties": {
+            "vulnId": "VULN-02",
+            "cwe": "CWE-89"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/AuthController.java"
+                },
+                "region": {
+                  "startLine": 42
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-330",
+          "ruleIndex": 12,
+          "level": "error",
+          "message": {
+            "text": "[VULN-18] CWE-330: predictable session token from java.util.Random"
+          },
+          "properties": {
+            "vulnId": "VULN-18",
+            "cwe": "CWE-330"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/AuthController.java"
+                },
+                "region": {
+                  "startLine": 52
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-614",
+          "ruleIndex": 18,
+          "level": "error",
+          "message": {
+            "text": "[VULN-17] CWE-614: auth cookie set without HttpOnly/Secure flags"
+          },
+          "properties": {
+            "vulnId": "VULN-17",
+            "cwe": "CWE-614"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/AuthController.java"
+                },
+                "region": {
+                  "startLine": 54
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-209",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "[VULN-16] CWE-209: raw exception detail returned to the client"
+          },
+          "properties": {
+            "vulnId": "VULN-16",
+            "cwe": "CWE-209"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/AuthController.java"
+                },
+                "region": {
+                  "startLine": 67
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-22",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "[VULN-06] CWE-22: path traversal — user input concatenated into a filesystem path"
+          },
+          "properties": {
+            "vulnId": "VULN-06",
+            "cwe": "CWE-22"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/FileController.java"
+                },
+                "region": {
+                  "startLine": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-434",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-07] CWE-434: unrestricted file upload (+ CWE-22 filename traversal)"
+          },
+          "properties": {
+            "vulnId": "VULN-07",
+            "cwe": "CWE-434"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/FileController.java"
+                },
+                "region": {
+                  "startLine": 42
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-639",
+          "ruleIndex": 19,
+          "level": "error",
+          "message": {
+            "text": "[VULN-12] CWE-639: IDOR — no authorization check tying the session to `id`"
+          },
+          "properties": {
+            "vulnId": "VULN-12",
+            "cwe": "CWE-639"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ProfileController.java"
+                },
+                "region": {
+                  "startLine": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "[VULN-01] CWE-89: (also SQL-injectable — id concatenated directly)"
+          },
+          "properties": {
+            "vulnId": "VULN-01",
+            "cwe": "CWE-89"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ProfileController.java"
+                },
+                "region": {
+                  "startLine": 34
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-04] CWE-79: stored XSS — bio rendered with th:utext in the template"
+          },
+          "properties": {
+            "vulnId": "VULN-04",
+            "cwe": "CWE-79"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ProfileController.java"
+                },
+                "region": {
+                  "startLine": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-200",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "[VULN-11] CWE-200: sensitive data (SSN) exposed to any viewer"
+          },
+          "properties": {
+            "vulnId": "VULN-11",
+            "cwe": "CWE-200"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ProfileController.java"
+                },
+                "region": {
+                  "startLine": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-04] CWE-79: stored XSS source + VULN:VULN-01:CWE-89 SQLi (bio/id concatenated)"
+          },
+          "properties": {
+            "vulnId": "VULN-04",
+            "cwe": "CWE-79"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/ProfileController.java"
+                },
+                "region": {
+                  "startLine": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "[VULN-01] CWE-89: SQL injection in product search (UNION-based extraction possible)"
+          },
+          "properties": {
+            "vulnId": "VULN-01",
+            "cwe": "CWE-89"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/SearchController.java"
+                },
+                "region": {
+                  "startLine": 36
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-209",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "[VULN-16] CWE-209: SQL error text surfaced to the page"
+          },
+          "properties": {
+            "vulnId": "VULN-16",
+            "cwe": "CWE-209"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/SearchController.java"
+                },
+                "region": {
+                  "startLine": 47
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-03] CWE-79: reflected XSS: `q` is echoed into the page via th:utext (unescaped)"
+          },
+          "properties": {
+            "vulnId": "VULN-03",
+            "cwe": "CWE-79"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/controller/SearchController.java"
+                },
+                "region": {
+                  "startLine": 50
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-798",
+          "ruleIndex": 21,
+          "level": "error",
+          "message": {
+            "text": "[VULN-14] CWE-798: hard-coded credentials / secret key baked into source"
+          },
+          "properties": {
+            "vulnId": "VULN-14",
+            "cwe": "CWE-798"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/util/CryptoUtil.java"
+                },
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-329",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "text": "[VULN-22] CWE-329: static IV"
+          },
+          "properties": {
+            "vulnId": "VULN-22",
+            "cwe": "CWE-329"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/util/CryptoUtil.java"
+                },
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-327",
+          "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "[VULN-13] CWE-327: broken/weak hash (MD5) used for passwords"
+          },
+          "properties": {
+            "vulnId": "VULN-13",
+            "cwe": "CWE-327"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/util/CryptoUtil.java"
+                },
+                "region": {
+                  "startLine": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-330",
+          "ruleIndex": 12,
+          "level": "error",
+          "message": {
+            "text": "[VULN-18] CWE-330: java.util.Random is not cryptographically secure; seed is predictable"
+          },
+          "properties": {
+            "vulnId": "VULN-18",
+            "cwe": "CWE-330"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/util/CryptoUtil.java"
+                },
+                "region": {
+                  "startLine": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-327",
+          "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "[VULN-23] CWE-327: AES/ECB-like usage with hard-coded key + static IV"
+          },
+          "properties": {
+            "vulnId": "VULN-23",
+            "cwe": "CWE-327"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/example/vulnapp/util/CryptoUtil.java"
+                },
+                "region": {
+                  "startLine": 48
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-798",
+          "ruleIndex": 21,
+          "level": "error",
+          "message": {
+            "text": "[VULN-27] CWE-798: hard-coded API key / secret shipped to the browser"
+          },
+          "properties": {
+            "vulnId": "VULN-27",
+            "cwe": "CWE-798"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/resources/static/js/app.js"
+                },
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-26] CWE-79: DOM-based XSS — untrusted fragment written via innerHTML"
+          },
+          "properties": {
+            "vulnId": "VULN-26",
+            "cwe": "CWE-79"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/resources/static/js/app.js"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-26] CWE-79: DOM XSS — query param concatenated into innerHTML"
+          },
+          "properties": {
+            "vulnId": "VULN-26",
+            "cwe": "CWE-79"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/resources/static/js/app.js"
+                },
+                "region": {
+                  "startLine": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-95",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "[VULN-28] CWE-95: dynamic code evaluation of a URL-controlled value"
+          },
+          "properties": {
+            "vulnId": "VULN-28",
+            "cwe": "CWE-95"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/resources/static/js/app.js"
+                },
+                "region": {
+                  "startLine": 22
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-200",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "[VULN-11] CWE-200: sensitive data (SSN) rendered to any viewer -->"
+          },
+          "properties": {
+            "vulnId": "VULN-11",
+            "cwe": "CWE-200"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/resources/templates/profile.html"
+                },
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-04] CWE-79: stored XSS: bio rendered unescaped with th:utext -->"
+          },
+          "properties": {
+            "vulnId": "VULN-04",
+            "cwe": "CWE-79"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/resources/templates/profile.html"
+                },
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-03] CWE-79: reflected XSS: th:utext renders the query term unescaped -->"
+          },
+          "properties": {
+            "vulnId": "VULN-03",
+            "cwe": "CWE-79"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/resources/templates/search.html"
+                },
+                "region": {
+                  "startLine": 14
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

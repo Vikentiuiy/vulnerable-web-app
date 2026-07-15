@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Profile</title>
+</head>
+<body>
+<h1>Profile</h1>
+<p th:if="${error}" style="color:red">Error: <span th:text="${error}"></span></p>
+
+<table border="1">
+    <tr><th>ID</th><td th:text="${id}"></td></tr>
+    <tr><th>Username</th><td th:text="${username}"></td></tr>
+    <tr><th>Role</th><td th:text="${role}"></td></tr>
+    <!-- VULN:VULN-11:CWE-200 sensitive data (SSN) rendered to any viewer -->
+    <tr><th>SSN</th><td th:text="${ssn}"></td></tr>
+    <!-- VULN:VULN-04:CWE-79 stored XSS: bio rendered unescaped with th:utext -->
+    <tr><th>Bio</th><td th:utext="${bio}"></td></tr>
+</table>
+
+<h2>Update bio</h2>
+<form method="post" action="/profile/update">
+    <input type="hidden" name="id" th:value="${id}"/>
+    <textarea name="bio"></textarea>
+    <button type="submit">Save</button>
+</form>
+<p><a href="/">home</a></p>
+</body>
+</html>

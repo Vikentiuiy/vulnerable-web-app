@@ -1,0 +1,11 @@
+target/
+*.class
+*.log
+.idea/
+.vscode/
+*.iml
+__pycache__/
+*.pyc
+poc/*.sarif
+tool_output.sarif
+shell.jsp

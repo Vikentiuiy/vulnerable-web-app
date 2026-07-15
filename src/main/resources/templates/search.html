@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Search</title>
+</head>
+<body>
+<h1>Product search</h1>
+<form method="get" action="/search">
+    <input name="q" th:value="${q}"/>
+    <button type="submit">Search</button>
+</form>
+
+<!-- VULN:VULN-03:CWE-79 reflected XSS: th:utext renders the query term unescaped -->
+<p>Results for: <span th:utext="${q}">query</span></p>
+
+<p th:if="${error}" style="color:red">Error: <span th:utext="${error}"></span></p>
+
+<table border="1">
+    <tr><th>ID</th><th>Name</th><th>Price</th></tr>
+    <tr th:each="row : ${results}">
+        <td th:text="${row.id}"></td>
+        <!-- product name also rendered unescaped (stored/second-order XSS surface) -->
+        <td th:utext="${row.name}"></td>
+        <td th:text="${row.price}"></td>
+    </tr>
+</table>
+<p><a href="/">home</a></p>
+</body>
+</html>
