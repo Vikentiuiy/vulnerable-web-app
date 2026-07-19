@@ -1,0 +1,6 @@
+# Intentionally vulnerable native C fixture — local lab only.
+services:
+  app:
+    build: .
+    container_name: vuln-cpp
+    command: ["sleep", "infinity"]

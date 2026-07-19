@@ -1,0 +1,5 @@
+# Scan scope for jsts-web. "-" = Ant-glob EXCLUDES (harness + exploits + build).
+- **/harness/**
+- **/exploits/**
+- **/dist/**
+- **/node_modules/**

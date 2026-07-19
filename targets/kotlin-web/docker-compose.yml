@@ -1,0 +1,8 @@
+# Intentionally vulnerable Kotlin web app — local lab only. DO NOT expose.
+# Self-contained (H2 in-memory), single container.
+services:
+  app:
+    build: .
+    container_name: vuln-kotlin-web
+    ports:
+      - "8081:8081"

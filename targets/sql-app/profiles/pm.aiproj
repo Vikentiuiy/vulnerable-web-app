@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/aiproj-1.9.json",
+  "Version": "1.9",
+  "ProjectName": "vuln-sql-app-pm",
+  "ProgrammingLanguages": [
+    "Python",
+    "Sql"
+  ],
+  "ScanModules": [
+    "StaticCodeAnalysis",
+    "PatternMatching"
+  ],
+  "ApplyAllPMRules": true,
+  "UseSecurityPolicies": false,
+  "SkipGitIgnoreFiles": false,
+  "PythonSettings": {
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": false,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "PmTaintSettings": {
+    "UsePublicAnalysisMethod": true,
+    "CustomParameters": "",
+    "PMGroups": []
+  },
+  "PygrepSettings": {
+    "CustomParameters": ""
+  }
+}

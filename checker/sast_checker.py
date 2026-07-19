@@ -183,6 +183,18 @@ RULE_NAME_TO_CWE = {
     "csv injection": ["CWE-1236"],
     "formula injection": ["CWE-1236"],
     "improper neutralization of formula elements in a csv file": ["CWE-1236"],
+    # --- exact PT AI 6.1 rule names observed in real SARIF output ---
+    "improper limitation of a pathname to a restricted directory": ["CWE-22"],
+    "improper limitation of a pathname to a restricted directory ('path traversal')": ["CWE-22"],
+    "improper neutralization of directives in dynamically evaluated code": ["CWE-95", "CWE-94"],
+    "improper neutralization of directives in dynamically evaluated code ('eval injection')": ["CWE-95", "CWE-94"],
+    "dynamic code injection": ["CWE-95", "CWE-94"],
+    "sensitive cookie in https session without 'secure' attribute": ["CWE-614"],
+    "arbitrary file modification": ["CWE-22", "CWE-434"],
+    "leftover debug code": ["CWE-489"],
+    "leftover debug code (main function)": ["CWE-489"],
+    "use of nullpointerexception catch to detect null pointer dereference": ["CWE-395"],
+    "empty default exception handler": ["CWE-396"],
 }
 
 
@@ -224,13 +236,34 @@ def path_key(uri):
     return "/".join(parts[-3:]) if parts else u
 
 
+def norm_parts(uri):
+    """Normalized path component list (drops '.' and empty)."""
+    return [p for p in norm_path(uri).split("/") if p and p != "."]
+
+
+def path_suffix_eq(a_parts, b_parts):
+    """True if the shorter component list is a suffix of the longer one. This
+    matches e.g. 'src/vuln.c' against 'vuln.c' — the same file reported relative
+    to different scan roots (reference is target-root-relative; a tool scanning
+    the src/ dir reports src-relative paths)."""
+    if not a_parts or not b_parts:
+        return False
+    n = min(len(a_parts), len(b_parts))
+    return a_parts[-n:] == b_parts[-n:]
+
+
 def cwes_from_name(*names):
     """Map tool rule names/ids to CWEs via RULE_NAME_TO_CWE (case-insensitive)."""
     found = set()
     for name in names:
         if not name:
             continue
+        # Normalise curly/smart quotes and whitespace so keys like
+        # "...without 'Secure' attribute" match regardless of quote style.
         key = str(name).strip().lower()
+        key = (key.replace("‘", "'").replace("’", "'")
+                  .replace("“", '"').replace("”", '"'))
+        key = re.sub(r"\s+", " ", key)
         if key in RULE_NAME_TO_CWE:
             found.update(RULE_NAME_TO_CWE[key])
     return found
@@ -322,19 +355,28 @@ def parse_results(sarif):
                 "cwes": cwes,
                 "uri": uri,
                 "path_key": path_key(uri),
+                "parts": norm_parts(uri),
                 "line": line,
                 "message": msg_text,
                 "vulnId": (res.get("properties", {}) or {}).get("vulnId"),
+                "dclass": (res.get("properties", {}) or {}).get("dclass"),
                 "raw_uri": uri,
             })
     return findings
 
 
-def loc_match(ref, act, tolerance, require_cwe):
-    if ref["path_key"] != act["path_key"]:
+def loc_match(ref, act, tolerance, require_cwe, allow_fileonly=False):
+    if not path_suffix_eq(ref["parts"], act["parts"]):
         return False
     if ref["line"] is None or act["line"] is None:
-        # can't compare lines; fall back to file-only match
+        # A line-less finding (typically an SCA / dependency result that points at
+        # a whole file/component with no code line) must NOT be allowed to claim a
+        # located planted sink just because it shares a filename -- doing so
+        # silently inflates recall. By default such findings fail the location
+        # match and fall through to the dependency bucket. --allow-fileonly-match
+        # restores the old file-only behaviour.
+        if not allow_fileonly:
+            return False
         line_ok = True
     else:
         line_ok = abs(int(ref["line"]) - int(act["line"])) <= tolerance
@@ -350,7 +392,7 @@ def cwe_match(ref, act, same_file=True):
     """Match by CWE overlap. By default also require the same source file so a
     finding of class X in file A cannot 'claim' a planted class-X issue in
     file B. Use --cwe-any-file to disable the file constraint."""
-    if same_file and ref["path_key"] != act["path_key"]:
+    if same_file and not path_suffix_eq(ref["parts"], act["parts"]):
         return False
     return bool(ref["cwes"] & act["cwes"])
 
@@ -404,23 +446,35 @@ def categorize_extra(extra, refs, tolerance, src_prefixes=("src/",)):
                     (e.g. the checker script itself, build files, tests)
       - false_pos : everything else (a genuine extra finding in app source)
     """
-    planted_lines = {}
-    for r in refs:
-        if r["line"] is not None:
-            planted_lines.setdefault(r["path_key"], []).append(int(r["line"]))
+    planted = [(r["parts"], int(r["line"])) for r in refs if r["line"] is not None]
 
     def near_planted(e):
         if e["line"] is None:
             return False
-        for pl in planted_lines.get(e["path_key"], []):
-            if abs(pl - int(e["line"])) <= tolerance:
+        for pp, pl in planted:
+            if path_suffix_eq(pp, e["parts"]) and abs(pl - int(e["line"])) <= tolerance:
                 return True
         return False
 
+    SRC_EXTS = (".java", ".kt", ".js", ".ts", ".jsx", ".tsx", ".sql", ".html",
+                ".py", ".php", ".rb", ".go", ".c", ".cc", ".cpp", ".cxx", ".h",
+                ".hpp", ".m", ".mm", ".swift", ".scala", ".properties", ".xml",
+                ".yml", ".yaml")
+    NONSRC_DIRS = ("/checker/", "/target/", "/build/", "/node_modules/",
+                   "/.git/", "/test/", "/tests/")
+
     def in_source(e):
-        u = (e["path_key"] or "")
-        # heuristic: real app source lives under a java package path
-        return (".java" in u) and ("/vulnapp/" in u or "src/" in (e["raw_uri"] or ""))
+        # A finding counts against precision if it lands in an application source
+        # file (any supported language, not just .java) and outside build/test/
+        # tooling dirs. The old heuristic only recognised .java under /vulnapp/,
+        # so genuine false positives in .js/.sql/.html/.kt/.py were silently
+        # dropped -- overstating precision. Line-less findings are handled
+        # separately (dependency bucket) before this is reached.
+        raw = (e["raw_uri"] or "").replace("\\", "/")
+        u = (e["path_key"] or "").lower()
+        if any(d in ("/" + raw.lstrip("/")).lower() for d in NONSRC_DIRS):
+            return False
+        return u.endswith(SRC_EXTS)
 
     buckets = {"duplicate": [], "dependency": [], "non_source": [], "false_pos": []}
     for e in extra:
@@ -448,6 +502,9 @@ def main():
                     help="in location mode, also require CWE to match")
     ap.add_argument("--cwe-any-file", action="store_true",
                     help="in cwe mode, match across files (ignore file, class only)")
+    ap.add_argument("--allow-fileonly-match", action="store_true",
+                    help="in location mode, let line-less findings (e.g. SCA) match "
+                         "a planted sink by filename only (old behaviour; inflates recall)")
     ap.add_argument("--json", metavar="PATH", help="write full report as JSON to PATH")
     ap.add_argument("--fail-under", type=float, default=None,
                     help="exit non-zero if recall (0-100%%) is below this value")
@@ -467,7 +524,8 @@ def main():
     if args.match == "cwe":
         matcher = lambda ref, act: cwe_match(ref, act, same_file=not args.cwe_any_file)
     else:
-        matcher = lambda ref, act: loc_match(ref, act, args.tolerance, args.require_cwe)
+        matcher = lambda ref, act: loc_match(ref, act, args.tolerance, args.require_cwe,
+                                              args.allow_fileonly_match)
 
     matches, missed, extra = greedy_match(refs, acts, matcher)
     buckets = categorize_extra(extra, refs, args.tolerance)
@@ -562,6 +620,24 @@ def main():
         print(f" Precision (raw)   : {precision_raw:6.2f}%   (TP / all tool findings)")
         print(f" F1 score          : {f1:6.2f}%")
         print("-" * 64)
+
+        # Per-detection-class recall — the headline is the ENGINE (taint class).
+        classes = {}
+        for r in refs:
+            dc = r.get("dclass") or "unknown"
+            classes.setdefault(dc, [0, 0])[1] += 1
+        matched_refs = {ri for ri, _ in matches}
+        for i, r in enumerate(refs):
+            if i in matched_refs:
+                classes[r.get("dclass") or "unknown"][0] += 1
+        if any(dc != "unknown" for dc in classes):
+            print(" RECALL BY DETECTION CLASS:")
+            order = ["taint", "pattern", "config", "sca", "logic", "unknown"]
+            for dc in sorted(classes, key=lambda x: order.index(x) if x in order else 99):
+                got, tot = classes[dc]
+                tag = "  <-- ENGINE (headline)" if dc == "taint" else ""
+                print(f"   {dc:8}: {got:2}/{tot:<2} = {100.0*got/tot:5.1f}%{tag}")
+            print("-" * 64)
 
         if missed:
             print(f" MISSED ({len(missed)}):")

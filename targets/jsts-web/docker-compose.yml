@@ -1,0 +1,7 @@
+# Intentionally vulnerable Node/TypeScript web app — local lab only. DO NOT expose.
+services:
+  app:
+    build: .
+    container_name: vuln-jsts-web
+    ports:
+      - "8083:8083"

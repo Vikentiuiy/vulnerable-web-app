@@ -1,0 +1,7 @@
+# Intentionally vulnerable Swift (Vapor) web app — local lab only. DO NOT expose.
+services:
+  app:
+    build: .
+    container_name: vuln-swift-web
+    ports:
+      - "8084:8084"

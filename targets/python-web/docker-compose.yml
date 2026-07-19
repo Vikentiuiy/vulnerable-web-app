@@ -1,0 +1,7 @@
+# Intentionally vulnerable Python (Flask) web app — local lab only. DO NOT expose.
+services:
+  app:
+    build: .
+    container_name: vuln-python-web
+    ports:
+      - "8082:8082"

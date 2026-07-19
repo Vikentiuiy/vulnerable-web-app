@@ -9,3 +9,14 @@ __pycache__/
 poc/*.sarif
 tool_output.sarif
 shell.jsp
+results/
+targets/*/exploits/*.sarif
+dist/
+build/
+.build/
+node_modules/
+.venv/
+vuln.db
+*.jar
+*.zip
+.gradle/

@@ -1,0 +1,17 @@
+# Scan scope for the java-web target.
+# Lines starting with "-" are Ant-glob EXCLUDES (relative to the scanned src root),
+# fed to the PT AI CLI via --excludes. Everything else is scanned.
+#
+# We exclude the live-exploit HARNESS / visualization so it never pollutes the
+# SAST measurement (see docs/benchmark-methodology.md, corruption sources #1,#2).
+#
+# --- harness package (post-1:1-refactor home of all instrumentation) ---
+- **/harness/**
+# --- current harness files (pre-refactor) ---
+- **/ExploitTracker.java
+- **/VulnCatalog.java
+- **/StatusController.java
+- **/dashboard.js
+- **/dashboard.html
+- **/exploits/**
+- **/tools/**

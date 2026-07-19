@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/aiproj-1.9.json",
+  "Version": "1.9",
+  "ProjectName": "vuln-cpp-max",
+  "ProgrammingLanguages": [
+    "CAndCPlusPlus"
+  ],
+  "ScanModules": [
+    "StaticCodeAnalysis",
+    "PatternMatching",
+    "Components",
+    "SoftwareCompositionAnalysis"
+  ],
+  "ApplyAllPMRules": true,
+  "UseSecurityPolicies": false,
+  "SkipGitIgnoreFiles": false,
+  "PmTaintSettings": {
+    "UsePublicAnalysisMethod": true,
+    "CustomParameters": "",
+    "PMGroups": []
+  },
+  "PygrepSettings": {
+    "CustomParameters": ""
+  }
+}

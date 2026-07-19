@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/aiproj-1.9.json",
+  "Version": "1.9",
+  "ProjectName": "vuln-swift-pm",
+  "ProgrammingLanguages": [
+    "Swift"
+  ],
+  "ScanModules": [
+    "StaticCodeAnalysis",
+    "PatternMatching"
+  ],
+  "ApplyAllPMRules": true,
+  "UseSecurityPolicies": false,
+  "SkipGitIgnoreFiles": false,
+  "PmTaintSettings": {
+    "UsePublicAnalysisMethod": true,
+    "CustomParameters": "",
+    "PMGroups": []
+  },
+  "PygrepSettings": {
+    "CustomParameters": ""
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/aiproj-1.9.json",
+  "Version": "1.9",
+  "ProjectName": "vuln-jsts-web-max",
+  "ProgrammingLanguages": [
+    "JavaScript"
+  ],
+  "ScanModules": [
+    "StaticCodeAnalysis",
+    "PatternMatching",
+    "Configuration",
+    "Components",
+    "SoftwareCompositionAnalysis"
+  ],
+  "ApplyAllPMRules": true,
+  "UseSecurityPolicies": false,
+  "SkipGitIgnoreFiles": false,
+  "JavaScriptSettings": {
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": false,
+    "UseTaintAnalysis": true,
+    "UseJsaAnalysis": true,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "PmTaintSettings": {
+    "UsePublicAnalysisMethod": true,
+    "CustomParameters": "",
+    "PMGroups": []
+  },
+  "PygrepSettings": {
+    "CustomParameters": ""
+  }
+}

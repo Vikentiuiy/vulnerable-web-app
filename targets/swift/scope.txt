@@ -1,0 +1,3 @@
+# Scan scope for swift target. "-" = Ant-glob EXCLUDES.
+- **/exploits/**
+- **/.build/**

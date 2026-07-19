@@ -24,10 +24,14 @@ import os
 import re
 import sys
 
-MARKER_RE = re.compile(r'VULN:(VULN-\d+):(CWE-\d+)\s*(.*)')
+# VULN:VULN-01:CWE-89:taint <desc>   (the :class segment is optional, one of
+# taint|pattern|config|sca|logic — see docs/benchmark-methodology.md)
+MARKER_RE = re.compile(r'VULN:(VULN-\d+):(CWE-\d+)(?::([a-z]+))?\s*(.*)')
 
-# File extensions that may contain markers.
-SCAN_EXTS = {".java", ".js", ".sql", ".html", ".properties", ".xml", ".yml", ".yaml"}
+# File extensions that may contain markers (all benchmark languages).
+SCAN_EXTS = {".java", ".kt", ".js", ".ts", ".py", ".sql", ".html", ".properties",
+             ".xml", ".yml", ".yaml", ".c", ".cc", ".cpp", ".cxx", ".h", ".hpp",
+             ".m", ".mm", ".swift", ".go", ".rb", ".php", ".kts"}
 
 # Directories to skip.
 SKIP_DIRS = {".git", "target", "node_modules", "checker"}
@@ -55,6 +59,7 @@ CWE_NAMES = {
     "CWE-312": "Cleartext Storage of Sensitive Information",
     "CWE-732": "Incorrect Permission Assignment",
     "CWE-329": "Not Using a Random IV with CBC Mode",
+    "CWE-321": "Use of Hard-coded Cryptographic Key",
     "CWE-601": "Open Redirect",
     "CWE-470": "Unsafe Reflection",
     "CWE-95":  "Code Injection (eval)",
@@ -89,10 +94,13 @@ def find_markers(root):
                         m = MARKER_RE.search(line)
                         if not m:
                             continue
-                        vuln_id, cwe, desc = m.group(1), m.group(2), m.group(3).strip()
+                        vuln_id, cwe = m.group(1), m.group(2)
+                        dclass = (m.group(3) or "unknown").strip()
+                        desc = m.group(4).strip()
                         findings.append({
                             "vulnId": vuln_id,
                             "cwe": cwe,
+                            "dclass": dclass,
                             "uri": rel,
                             "line": lineno,
                             "desc": desc or CWE_NAMES.get(cwe, cwe),
@@ -122,8 +130,8 @@ def build_sarif(findings):
             "ruleId": f["cwe"],
             "ruleIndex": rule_index[f["cwe"]],
             "level": "error",
-            "message": {"text": f"[{f['vulnId']}] {f['cwe']}: {f['desc']}"},
-            "properties": {"vulnId": f["vulnId"], "cwe": f["cwe"]},
+            "message": {"text": f"[{f['vulnId']}] {f['cwe']} ({f['dclass']}): {f['desc']}"},
+            "properties": {"vulnId": f["vulnId"], "cwe": f["cwe"], "dclass": f["dclass"]},
             "locations": [{
                 "physicalLocation": {
                     "artifactLocation": {"uri": f["uri"]},
@@ -165,9 +173,13 @@ def main():
     by_cwe = {}
     for x in findings:
         by_cwe[x["cwe"]] = by_cwe.get(x["cwe"], 0) + 1
+    by_class = {}
+    for x in findings:
+        by_class[x.get("dclass", "unknown")] = by_class.get(x.get("dclass", "unknown"), 0) + 1
     print(f"Wrote {len(findings)} reference findings to {args.output}")
     print(f"Distinct vuln ids: {len(set(x['vulnId'] for x in findings))}")
     print(f"Distinct CWEs: {len(by_cwe)}")
+    print("By detection class: " + ", ".join(f"{k}={v}" for k, v in sorted(by_class.items())))
     for cwe in sorted(by_cwe, key=lambda c: int(c.split('-')[1])):
         print(f"  {cwe:8} x{by_cwe[cwe]}  {CWE_NAMES.get(cwe,'')}")
 

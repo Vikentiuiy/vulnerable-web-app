@@ -1,0 +1,359 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "vulnerable-web-app-reference",
+          "informationUri": "https://github.com/Vikentiuiy/vulnerable-web-app",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "CWE-78",
+              "name": "OS Command Injection",
+              "shortDescription": {
+                "text": "OS Command Injection"
+              },
+              "properties": {
+                "cwe": "CWE-78",
+                "tags": [
+                  "CWE-78"
+                ]
+              }
+            },
+            {
+              "id": "CWE-89",
+              "name": "SQL Injection",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "properties": {
+                "cwe": "CWE-89",
+                "tags": [
+                  "CWE-89"
+                ]
+              }
+            },
+            {
+              "id": "CWE-256",
+              "name": "Plaintext Storage of a Password",
+              "shortDescription": {
+                "text": "Plaintext Storage of a Password"
+              },
+              "properties": {
+                "cwe": "CWE-256",
+                "tags": [
+                  "CWE-256"
+                ]
+              }
+            },
+            {
+              "id": "CWE-312",
+              "name": "Cleartext Storage of Sensitive Information",
+              "shortDescription": {
+                "text": "Cleartext Storage of Sensitive Information"
+              },
+              "properties": {
+                "cwe": "CWE-312",
+                "tags": [
+                  "CWE-312"
+                ]
+              }
+            },
+            {
+              "id": "CWE-732",
+              "name": "Incorrect Permission Assignment",
+              "shortDescription": {
+                "text": "Incorrect Permission Assignment"
+              },
+              "properties": {
+                "cwe": "CWE-732",
+                "tags": [
+                  "CWE-732"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-256",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-74] CWE-256 (config): passwords stored as unsalted MD5"
+          },
+          "properties": {
+            "vulnId": "VULN-74",
+            "cwe": "CWE-256",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "db/01_schema.sql"
+                },
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-312",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "[VULN-75] CWE-312 (config): secret answer kept in cleartext"
+          },
+          "properties": {
+            "vulnId": "VULN-75",
+            "cwe": "CWE-312",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "db/01_schema.sql"
+                },
+                "region": {
+                  "startLine": 10
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-732",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "[VULN-73] CWE-732 (config): application DB user granted full privileges on everything"
+          },
+          "properties": {
+            "vulnId": "VULN-73",
+            "cwe": "CWE-732",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "db/01_schema.sql"
+                },
+                "region": {
+                  "startLine": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-81] CWE-89 (taint): SQL injection — HTTP input concatenated into a MySQL query"
+          },
+          "properties": {
+            "vulnId": "VULN-81",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln81_sqli.py"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-82] CWE-89 (taint): SQL injection in authentication (login bypass)"
+          },
+          "properties": {
+            "vulnId": "VULN-82",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln82_login.py"
+                },
+                "region": {
+                  "startLine": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-83] CWE-89 (taint): SQLi flows HTTP -> stored procedure that builds dynamic SQL"
+          },
+          "properties": {
+            "vulnId": "VULN-83",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln83_proc.py"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-84] CWE-89 (taint): SQL injection — f-string interpolation of HTTP input into a query"
+          },
+          "properties": {
+            "vulnId": "VULN-84",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln84_fstring.py"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-85] CWE-89 (taint): SQL injection — str.format() interpolation of HTTP input"
+          },
+          "properties": {
+            "vulnId": "VULN-85",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln85_format.py"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-78",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "[VULN-87] CWE-78 (taint): OS command injection (positive control — expected to be detected)"
+          },
+          "properties": {
+            "vulnId": "VULN-87",
+            "cwe": "CWE-78",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln87_cmd_control.py"
+                },
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-78",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "[VULN-90] CWE-78 (taint): OS command injection on `term` (positive control — detected)"
+          },
+          "properties": {
+            "vulnId": "VULN-90",
+            "cwe": "CWE-78",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln89_combo.py"
+                },
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-89] CWE-89 (taint): SQL injection on the SAME `term` (expected miss — blind spot)"
+          },
+          "properties": {
+            "vulnId": "VULN-89",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln89_combo.py"
+                },
+                "region": {
+                  "startLine": 21
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

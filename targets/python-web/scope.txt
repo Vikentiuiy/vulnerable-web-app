@@ -1,0 +1,5 @@
+# Scan scope for python-web (see docs/benchmark-methodology.md).
+# "-" lines are Ant-glob EXCLUDES; harness excluded so it never pollutes the SAST measurement.
+- **/harness/**
+- **/exploits/**
+- **/tools/**

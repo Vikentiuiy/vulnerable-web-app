@@ -1,0 +1,28 @@
+# SQL-focused target: thin Flask app + real MySQL (schema + stored procs), so the
+# SQL sinks have a live HTTP taint source. Local lab only.
+services:
+  db:
+    image: mysql:8.0
+    container_name: vuln-sqlapp-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vulnsql
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  app:
+    build: .
+    container_name: vuln-sqlapp
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+    ports:
+      - "8085:8085"

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json.schemastore.org/aiproj-1.9.json",
+  "Version": "1.9",
+  "ProjectName": "vulnshop-java-web-max",
+  "ProgrammingLanguages": [
+    "Java",
+    "JavaScript",
+    "Sql"
+  ],
+  "ScanModules": [
+    "StaticCodeAnalysis",
+    "PatternMatching",
+    "Configuration",
+    "Components",
+    "SoftwareCompositionAnalysis"
+  ],
+  "ApplyAllPMRules": true,
+  "UseSecurityPolicies": false,
+  "SkipGitIgnoreFiles": false,
+  "JavaScriptSettings": {
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": true,
+    "UseTaintAnalysis": true,
+    "UseJsaAnalysis": true,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "JavaSettings": {
+    "Parameters": "",
+    "UnpackUserPackages": true,
+    "UserPackagePrefixes": "",
+    "Version": "21",
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": true,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "PmTaintSettings": {
+    "UsePublicAnalysisMethod": true,
+    "CustomParameters": "",
+    "PMGroups": []
+  },
+  "PygrepSettings": {
+    "CustomParameters": ""
+  }
+}

@@ -1,0 +1,6 @@
+# Scan scope for the kotlin-web target (see docs/benchmark-methodology.md).
+# "-" lines are Ant-glob EXCLUDES fed to the PT AI CLI. Harness excluded so it
+# never pollutes the SAST measurement.
+- **/harness/**
+- **/exploits/**
+- **/tools/**

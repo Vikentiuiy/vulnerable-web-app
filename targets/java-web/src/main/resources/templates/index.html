@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>VulnShop (java-web) — intentionally vulnerable lab</title>
+</head>
+<body>
+<h1>VulnShop — java-web target</h1>
+<p><strong>Intentionally vulnerable SAST benchmark fixture. Local lab use only.</strong></p>
+<p>➡ <a href="/dashboard"><strong>Live exploitation dashboard</strong></a>
+   — 40 vulnerabilities, one dedicated endpoint each, flip green→red as exploited.</p>
+<ul>
+    <li>Each vulnerability lives at <code>/vulnNN/…</code> (one file = one vuln).</li>
+    <li><a href="/welcome.html">Client page</a> — browser sinks (DOM XSS, eval, hard-coded key).</li>
+    <li>Run <code>python3 exploits/exploit_all.py</code> to fire all exploits.</li>
+</ul>
+<p>See <code>VULNERABILITIES.md</code> for the full table (id · CWE · detection class · endpoint).</p>
+</body>
+</html>

@@ -1,0 +1,3 @@
+# Scan scope for sql-app. "-" = Ant-glob EXCLUDES.
+- **/harness/**
+- **/exploits/**

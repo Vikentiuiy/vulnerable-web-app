@@ -1,126 +1,128 @@
-# vulnerable-web-app
+# vuln-sast-benchmark
 
-> ⚠️ **Intentionally vulnerable.** A runnable Java + JavaScript + SQL web app
-> ("VulnShop") with **40 planted, exploitable vulnerabilities** (52 sink
-> locations). Built for benchmarking SAST tools and hands-on exploitation
-> practice. **DO NOT DEPLOY** anywhere reachable from an untrusted network.
+> ⚠️ **Intentionally vulnerable.** A multi-language benchmark for evaluating SAST
+> tools (built for **PT Application Inspector**, works with any SARIF-emitting
+> tool). Every planted vulnerability is **real and exploitable end-to-end in
+> Docker** — not a static snippet. **DO NOT DEPLOY** on any reachable network.
 
-Unlike a pile of static bad-code snippets, this app actually **builds, runs, and
-is exploitable end-to-end** in Docker — every finding in the reference SARIF has
-a working proof-of-concept.
+The goal is an **honest, per-language, per-detection-class** measurement of how
+well a SAST tool — and especially its **core engine** — finds real vulnerabilities,
+with FP/FN statistics that are not corrupted by fixture or scoring artifacts.
+See **[`docs/benchmark-methodology.md`](docs/benchmark-methodology.md)**.
 
-## What's in the box
+## Layout
 
-| Path | What |
-|------|------|
-| `src/`, `db/` | The vulnerable app (Spring Boot backend, JS frontend, MySQL schema) |
-| `Dockerfile`, `docker-compose.yml` | Build + run the whole stack |
-| `VULNERABILITIES.md` | The list of all 40 planted vulns (CWE, location, entry point) |
-| `docs/` | Architecture + copy-paste exploitation guide |
-| `poc/` | `exploit_all.py` — automated end-to-end exploits (proves they fire) |
-| `checker/` | `build_reference.py` (ground truth) + `sast_checker.py` (scorer) + `reference.sarif` |
-| `/dashboard` | Live exploitation dashboard — status bars flip 🟢→🔴 as each vuln is exploited |
-
-Languages: **Java** (Spring Boot sinks), **SQL** (insecure schema/storage/privs),
-**JavaScript** (DOM XSS, secret leakage, `eval`).
-
-## 1. Build & run (Docker)
-
-```bash
-docker compose up -d --build
-# app  -> http://localhost:8080
-# mysql-> localhost:3306 (vulnapp / root:root)
+```
+targets/            one self-contained, independently-scannable target per language
+  java-web/         Java + SQL + browser-JS (Spring Boot)   [reference target]
+  kotlin-web/       Kotlin (Spring Boot + H2)               [done: 31 vulns]
+  python-web/       Python (Flask + SQLite)                 [done: 33 vulns]
+  jsts-web/         Node/Express + TypeScript               [done: 25 vulns]
+  sql/              MySQL schema + stored-proc weaknesses   [done: 7 vulns]
+  sql-app/          Flask + MySQL (SQL taint via HTTP)       [done: 11 vulns]
+  cpp/              native ASAN-verified memory-safety bugs [done: 20 vulns]
+  swift/            Swift (Vapor)                           [done: 13 vulns]
+checker/            shared, tool-agnostic: build_reference.py + sast_checker.py
+ptai/               shared PT AI automation: scan.sh, run_ablation.sh, compare_profiles.py
+docs/               methodology + guides
 ```
 
-Wait ~15s for MySQL to become healthy and the app to boot, then open
-<http://localhost:8080>. Tear down with `docker compose down -v`.
+## The target contract
 
-Seed users: `admin/admin123`, `alice/password1`, `bob/qwerty`.
+Every `targets/<lang>/` provides the same artifacts, so tooling is shared:
 
-## 2. Prove the vulns are exploitable (POC)
+| Artifact | Purpose |
+|----------|---------|
+| `src/…` with `VULN:VULN-xx:CWE-nnn:class` markers | the vulnerable code — **only this is scanned** |
+| `Dockerfile` (+ `docker-compose.yml`) | build & run gate |
+| `scope.txt` | Ant-glob excludes so the scanner sees only vulnerable code (harness excluded) |
+| `reference.sarif` | ground truth, generated from this target's markers |
+| `exploits/` | runtime PoC that proves every planted vuln fires |
+| `profiles/*.aiproj` | scan profiles (`default`=engine, `pm`, `config`, `max`) |
 
-The PoC suite needs Python 3 and the `requests` package. Use an isolated
-virtual environment (venv) so nothing touches your system Python:
+A vulnerability only counts once it (1) builds, (2) runs, (3) is exploited by a
+passing PoC, and (4) is in sync across marker ⟷ exploit ⟷ catalog.
 
-```bash
-# create & activate a virtualenv
-python3 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
+## Requirements
 
-# install dependencies into the venv
-pip install --upgrade pip
-pip install -r poc/requirements.txt
+- **Docker** + Docker Compose (every target builds & runs in Docker).
+- **Python 3** with `requests` for the exploit suites: `pip install requests`.
+- For SAST scanning: a reachable **PT AI** server + API token, and the CLI image
+  (built once, below). OSS comparison additionally pulls the `semgrep/semgrep` image.
 
-# run the exploits
-python3 poc/exploit_all.py                 # runs every exploit, prints PASS/FAIL
-python3 poc/exploit_all.py --only sqli,xxe # subset
+## Targets & ports
 
-deactivate                          # leave the venv when done
-```
+| Target | Stack | Port | Exploit gate |
+|--------|-------|------|--------------|
+| `java-web`   | Spring Boot (Java+SQL+JS) | 8080 | `40/40` HTTP |
+| `kotlin-web` | Spring Boot + H2          | 8081 | `31/31` HTTP |
+| `python-web` | Flask + SQLite            | 8082 | `33/33` HTTP |
+| `jsts-web`   | Node/Express + TypeScript | 8083 | `25/25` HTTP |
+| `swift`      | Vapor                     | 8084 | `13/13` HTTP |
+| `sql-app`    | Flask + MySQL             | 8085 | `11/11` HTTP + DB |
+| `sql`        | MySQL schema + procs      | 3307 | `7/7` DB |
+| `cpp`        | native C + ASAN           | —    | `20/20` ASAN |
 
-Or the one-liner wrapper (creates deps and runs): `bash poc/run_all.sh`.
-
-Expected: `RESULT: 40/40 exploits succeeded`. See `docs/exploitation-guide.md`
-for the `curl` version of each, and open the live **dashboard** at
-<http://localhost:8080/dashboard> to watch each vulnerability's status bar flip
-from 🟢 green (not exploited) to 🔴 red (exploited) in real time.
-
-## 3. Benchmark a SAST tool
-
-The ground-truth SARIF is generated straight from `VULN:VULN-x:CWE-n` markers in
-the source, so line numbers always match the code:
-
-```bash
-python3 checker/build_reference.py         # (re)build checker/reference.sarif — 52 findings
-```
-
-Run your SAST tool (Semgrep, CodeQL, SpotBugs/find-sec-bugs, PT AI, Snyk, …),
-export **SARIF**, then compare:
+## 1. Build, run & prove exploitability (any target)
 
 ```bash
-# Location-based (default): same file, line within ±tolerance of the planted sink
-python3 checker/sast_checker.py -r checker/reference.sarif -a tool_output.sarif
-
-# Also require the CWE class to match
-python3 checker/sast_checker.py -r checker/reference.sarif -a tool_output.sarif --require-cwe
-
-# Coarser: match purely by CWE class (ignores location)
-python3 checker/sast_checker.py -r checker/reference.sarif -a tool_output.sarif --match cwe
-
-# CI gate: fail if recall < 60%
-python3 checker/sast_checker.py -r checker/reference.sarif -a tool_output.sarif --fail-under 60
+cd targets/<target>
+docker compose up -d --build          # build + start the vulnerable app
+python3 exploits/exploit_all.py       # fires every exploit, prints N/N succeeded
+docker compose down -v                # tear down
 ```
 
-You get **matched / missed / extra** findings plus **recall / precision / F1**.
-The checker maps tool-specific rule names to CWEs (e.g. PT Application Inspector's
-"SQL Injection" → CWE-89), so it works even when a tool doesn't emit CWE ids.
+Or from the repo root via the Makefile: `make test TARGET=<target>`
+(goals: `build up down exploit reference scan ablation`; `make list` shows targets).
+`cpp` and `sql` have no web port — their exploit gate runs against the container
+(ASAN crashes / DB), so bring the container up first, then run the suite.
 
-## Live exploitation dashboard
+## 2. Ground truth
 
-Open <http://localhost:8080/dashboard>. Each of the 40 vulnerabilities has a
-status bar — 🟢 **green = not exploited**, 🔴 **red = exploited/confirmed**, with
-the concrete evidence next to it (leaked SSN, cracked MD5, ReDoS timing, the
-overflowed total, …). The bars flip to red when the vuln is actually attacked —
-by the PoC script, by `curl`, or by the dashboard's own **“Launch all exploits”**
-button, which fires a benign exploit at every endpoint from the browser. Server
-sinks self-report on real attacks, so the board can't be faked green→red.
+```bash
+python3 checker/build_reference.py --root targets/<target> -o targets/<target>/reference.sarif
+python3 checker/verify_contract.py targets/<target>   # marker⟷catalog⟷exploit⟷reference in sync
+```
 
-## Vulnerability classes (40)
+## 3. Scan with PT AI & score
 
-SQLi (×2), reflected + stored + DOM XSS, OS command injection, path traversal,
-unrestricted upload, insecure deserialization, XXE, SSRF, open redirect, unsafe
-reflection, IDOR, sensitive-data exposure, missing authentication, verbose
-errors, insecure/predictable session cookies, weak crypto (MD5, hard-coded AES
-key, static IV), hard-coded secrets (server + JS), insecure SQL schema (unsalted
-passwords, cleartext storage, excessive privileges), client-side `eval`,
-mass assignment, no rate limiting, JWT-alg-none, SpEL/EL injection, CSV/formula
-injection, insecure CORS, clickjacking, integer overflow, XPath injection,
-ReDoS, log injection, session fixation.
+```bash
+# one-time: build the PT AI CLI image from POSIdev-community/ptai-ee-tools
+git clone --depth 1 https://github.com/POSIdev-community/ptai-ee-tools /tmp/ptai-ee-tools
+docker build -t ptai-cli:local /tmp/ptai-ee-tools
 
-Full table with CWE ids and locations: **[`VULNERABILITIES.md`](VULNERABILITIES.md)**.
+export PTAI_TOKEN=<your-api-token>     # PTAI_URL / PTAI_HOST_IP override the defaults
+ptai/scan.sh targets/<target> default results/<target>-default.sarif   # engine profile
+python3 checker/sast_checker.py -r targets/<target>/reference.sarif -a results/<target>-default.sarif
+
+ptai/run_ablation.sh targets/<target>  # default→+PM→+Config→+max, per-module deltas
+ptai/summary.sh                        # aggregate engine recall across all scanned targets
+```
+
+## 4. Compare against open-source SAST (Semgrep)
+
+```bash
+docker run --rm -v "$PWD":/repo -w /repo semgrep/semgrep \
+  semgrep scan --config auto --sarif -o results/semgrep-<target>.sarif \
+  --exclude harness --exclude exploits targets/<target>/src
+ptai/compare_tools.sh <target> results/<target>-default.sarif results/semgrep-<target>.sarif Semgrep
+```
+
+## 5. Visual report
+
+```bash
+python3 ptai/gen_report.py             # writes docs/report.html from results/report_data.json
+```
+
+## 6. Pack a clean archive for any SAST UI
+
+```bash
+ptai/pack.sh targets/<target>          # dist/<target>-scan.zip — vulnerable code ONLY
+```
+Strips the harness, exploits, build output and deps per `scope.txt`, so an unfamiliar
+user can't accidentally upload the whole repo.
 
 ## Legal / safety
 
-For authorized security education, SAST evaluation, and CTF-style practice only.
-Runs an unauthenticated remote-code-execution surface by design — keep it on
-`localhost` / an isolated lab network. You are responsible for how you use it.
+For authorized security education and SAST evaluation only. Runs unauthenticated
+RCE surfaces by design — keep on `localhost` / an isolated lab network.

@@ -1,0 +1,30 @@
+// HARNESS (out of scan scope). Canonical planted-vuln list with detection class.
+export type Entry = [id: string, cwe: string, dclass: string, title: string, category: string, entry: string];
+
+export const CATALOG: Entry[] = [
+  ["VULN-01", "CWE-89", "taint", "SQL Injection (search)", "Injection", "GET /vuln01/search?q="],
+  ["VULN-02", "CWE-89", "taint", "SQL Injection (auth bypass)", "Injection", "POST /vuln02/login"],
+  ["VULN-03", "CWE-79", "taint", "Reflected XSS", "XSS", "GET /vuln03/echo?q="],
+  ["VULN-04", "CWE-79", "taint", "Stored XSS", "XSS", "POST /vuln04/save -> /vuln04/show"],
+  ["VULN-05", "CWE-78", "taint", "OS Command Injection", "Injection", "GET /vuln05/ping?host="],
+  ["VULN-06", "CWE-22", "taint", "Path Traversal", "Files", "GET /vuln06/download?name="],
+  ["VULN-10", "CWE-918", "taint", "SSRF", "Server", "GET /vuln10/fetch?url="],
+  ["VULN-11", "CWE-200", "logic", "Sensitive Data Exposure (SSN)", "AccessCtrl", "GET /vuln11/profile?id="],
+  ["VULN-12", "CWE-639", "logic", "IDOR", "AccessCtrl", "GET /vuln12/account?id="],
+  ["VULN-13", "CWE-327", "pattern", "Weak Hash (MD5)", "Crypto", "GET /vuln13/hash?p="],
+  ["VULN-16", "CWE-209", "logic", "Verbose Error", "Server", "GET /vuln16/lookup?id="],
+  ["VULN-17", "CWE-614", "config", "Insecure Cookie", "Config", "GET /vuln17/login?user="],
+  ["VULN-18", "CWE-330", "pattern", "Predictable Token (Math.random)", "Crypto", "GET /vuln18/token?user="],
+  ["VULN-19", "CWE-256", "config", "Unsalted Password Storage", "Storage", "seed schema"],
+  ["VULN-20", "CWE-312", "config", "Cleartext Storage", "Storage", "seed schema"],
+  ["VULN-24", "CWE-601", "taint", "Open Redirect", "Server", "GET /vuln24/redirect?url="],
+  ["VULN-29", "CWE-915", "logic", "Mass Assignment", "AccessCtrl", "POST /vuln29/register"],
+  ["VULN-32", "CWE-95", "taint", "Code Injection (eval)", "Injection", "GET /vuln32/calc?expr="],
+  ["VULN-33", "CWE-1236", "taint", "CSV Injection", "Injection", "GET /vuln33/export?note="],
+  ["VULN-34", "CWE-942", "config", "Insecure CORS", "Config", "GET /vuln34/data (Origin)"],
+  ["VULN-35", "CWE-1021", "config", "Clickjacking", "Config", "any response"],
+  ["VULN-38", "CWE-1333", "logic", "ReDoS", "Logic", "GET /vuln38/validate?email="],
+  ["VULN-39", "CWE-117", "taint", "Log Injection", "Server", "GET /vuln39/note?text="],
+  ["VULN-40", "CWE-384", "logic", "Session Fixation", "AccessCtrl", "GET /vuln40/setsession?sid="],
+  ["VULN-43", "CWE-1321", "taint", "Prototype Pollution", "Injection", "POST /vuln43/merge"],
+];

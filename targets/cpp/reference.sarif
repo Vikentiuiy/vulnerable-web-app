@@ -1,0 +1,701 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "vulnerable-web-app-reference",
+          "informationUri": "https://github.com/Vikentiuiy/vulnerable-web-app",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "CWE-22",
+              "name": "Path Traversal",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "properties": {
+                "cwe": "CWE-22",
+                "tags": [
+                  "CWE-22"
+                ]
+              }
+            },
+            {
+              "id": "CWE-78",
+              "name": "OS Command Injection",
+              "shortDescription": {
+                "text": "OS Command Injection"
+              },
+              "properties": {
+                "cwe": "CWE-78",
+                "tags": [
+                  "CWE-78"
+                ]
+              }
+            },
+            {
+              "id": "CWE-89",
+              "name": "SQL Injection",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "properties": {
+                "cwe": "CWE-89",
+                "tags": [
+                  "CWE-89"
+                ]
+              }
+            },
+            {
+              "id": "CWE-120",
+              "name": "CWE-120",
+              "shortDescription": {
+                "text": "CWE-120"
+              },
+              "properties": {
+                "cwe": "CWE-120",
+                "tags": [
+                  "CWE-120"
+                ]
+              }
+            },
+            {
+              "id": "CWE-121",
+              "name": "CWE-121",
+              "shortDescription": {
+                "text": "CWE-121"
+              },
+              "properties": {
+                "cwe": "CWE-121",
+                "tags": [
+                  "CWE-121"
+                ]
+              }
+            },
+            {
+              "id": "CWE-122",
+              "name": "CWE-122",
+              "shortDescription": {
+                "text": "CWE-122"
+              },
+              "properties": {
+                "cwe": "CWE-122",
+                "tags": [
+                  "CWE-122"
+                ]
+              }
+            },
+            {
+              "id": "CWE-125",
+              "name": "CWE-125",
+              "shortDescription": {
+                "text": "CWE-125"
+              },
+              "properties": {
+                "cwe": "CWE-125",
+                "tags": [
+                  "CWE-125"
+                ]
+              }
+            },
+            {
+              "id": "CWE-134",
+              "name": "CWE-134",
+              "shortDescription": {
+                "text": "CWE-134"
+              },
+              "properties": {
+                "cwe": "CWE-134",
+                "tags": [
+                  "CWE-134"
+                ]
+              }
+            },
+            {
+              "id": "CWE-190",
+              "name": "Integer Overflow or Wraparound",
+              "shortDescription": {
+                "text": "Integer Overflow or Wraparound"
+              },
+              "properties": {
+                "cwe": "CWE-190",
+                "tags": [
+                  "CWE-190"
+                ]
+              }
+            },
+            {
+              "id": "CWE-193",
+              "name": "CWE-193",
+              "shortDescription": {
+                "text": "CWE-193"
+              },
+              "properties": {
+                "cwe": "CWE-193",
+                "tags": [
+                  "CWE-193"
+                ]
+              }
+            },
+            {
+              "id": "CWE-415",
+              "name": "CWE-415",
+              "shortDescription": {
+                "text": "CWE-415"
+              },
+              "properties": {
+                "cwe": "CWE-415",
+                "tags": [
+                  "CWE-415"
+                ]
+              }
+            },
+            {
+              "id": "CWE-416",
+              "name": "CWE-416",
+              "shortDescription": {
+                "text": "CWE-416"
+              },
+              "properties": {
+                "cwe": "CWE-416",
+                "tags": [
+                  "CWE-416"
+                ]
+              }
+            },
+            {
+              "id": "CWE-476",
+              "name": "CWE-476",
+              "shortDescription": {
+                "text": "CWE-476"
+              },
+              "properties": {
+                "cwe": "CWE-476",
+                "tags": [
+                  "CWE-476"
+                ]
+              }
+            },
+            {
+              "id": "CWE-787",
+              "name": "CWE-787",
+              "shortDescription": {
+                "text": "CWE-787"
+              },
+              "properties": {
+                "cwe": "CWE-787",
+                "tags": [
+                  "CWE-787"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-121",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "[VULN-51] CWE-121 (taint): stack buffer overflow via strcpy of unbounded input"
+          },
+          "properties": {
+            "vulnId": "VULN-51",
+            "cwe": "CWE-121",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln51_stack_overflow.c"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-122",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "[VULN-52] CWE-122 (taint): heap buffer overflow — memcpy of attacker-sized input"
+          },
+          "properties": {
+            "vulnId": "VULN-52",
+            "cwe": "CWE-122",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln52_heap_overflow.c"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-416",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "text": "[VULN-53] CWE-416 (taint): use-after-free — freed memory read back"
+          },
+          "properties": {
+            "vulnId": "VULN-53",
+            "cwe": "CWE-416",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln53_use_after_free.c"
+                },
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-415",
+          "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "[VULN-54] CWE-415 (taint): double free of the same heap pointer"
+          },
+          "properties": {
+            "vulnId": "VULN-54",
+            "cwe": "CWE-415",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln54_double_free.c"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-134",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "[VULN-55] CWE-134 (taint): uncontrolled format string — user input as printf format"
+          },
+          "properties": {
+            "vulnId": "VULN-55",
+            "cwe": "CWE-134",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln55_format_string.c"
+                },
+                "region": {
+                  "startLine": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-190",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "[VULN-56] CWE-190 (taint): integer truncation in size calc -> undersized buffer"
+          },
+          "properties": {
+            "vulnId": "VULN-56",
+            "cwe": "CWE-190",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln56_int_overflow.c"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-78",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-57] CWE-78 (taint): OS command injection via system()"
+          },
+          "properties": {
+            "vulnId": "VULN-57",
+            "cwe": "CWE-78",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln57_cmd_injection.c"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-22",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "[VULN-58] CWE-22 (taint): path traversal via fopen of user-controlled path"
+          },
+          "properties": {
+            "vulnId": "VULN-58",
+            "cwe": "CWE-22",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln58_path_traversal.c"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-476",
+          "ruleIndex": 12,
+          "level": "error",
+          "message": {
+            "text": "[VULN-59] CWE-476 (logic): null pointer dereference"
+          },
+          "properties": {
+            "vulnId": "VULN-59",
+            "cwe": "CWE-476",
+            "dclass": "logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln59_null_deref.c"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-787",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-60] CWE-787 (taint): out-of-bounds write — array index from untrusted input"
+          },
+          "properties": {
+            "vulnId": "VULN-60",
+            "cwe": "CWE-787",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln60_oob_write.c"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-125",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "[VULN-61] CWE-125 (taint): out-of-bounds read — array index from untrusted input"
+          },
+          "properties": {
+            "vulnId": "VULN-61",
+            "cwe": "CWE-125",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln61_oob_read.c"
+                },
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-62] CWE-89 (taint): SQL injection — user input formatted into a query string"
+          },
+          "properties": {
+            "vulnId": "VULN-62",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln62_sqli.c"
+                },
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-787",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-63] CWE-787 (taint): unbounded read() from stdin into a 32-byte buffer"
+          },
+          "properties": {
+            "vulnId": "VULN-63",
+            "cwe": "CWE-787",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln63_read_stdin.c"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-120",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "[VULN-64] CWE-120 (taint): strcat of environment-controlled data into a fixed buffer"
+          },
+          "properties": {
+            "vulnId": "VULN-64",
+            "cwe": "CWE-120",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln64_strcat_env.c"
+                },
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-787",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-65] CWE-787 (taint): sprintf of unbounded argv into a fixed buffer"
+          },
+          "properties": {
+            "vulnId": "VULN-65",
+            "cwe": "CWE-787",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln65_sprintf_overflow.c"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-787",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-66] CWE-787 (taint): scanf %s from stdin into a fixed buffer (no width limit)"
+          },
+          "properties": {
+            "vulnId": "VULN-66",
+            "cwe": "CWE-787",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln66_scanf_stdin.c"
+                },
+                "region": {
+                  "startLine": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-122",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "[VULN-67] CWE-122 (taint): file-controlled length drives an oversized heap copy"
+          },
+          "properties": {
+            "vulnId": "VULN-67",
+            "cwe": "CWE-122",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln67_fread_heap.c"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-787",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-68] CWE-787 (taint): negative/large length from argv into memmove"
+          },
+          "properties": {
+            "vulnId": "VULN-68",
+            "cwe": "CWE-787",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln68_memmove_neg.c"
+                },
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-193",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "text": "[VULN-69] CWE-193 (taint): off-by-one — copies len bytes then writes a NUL at buf[len]"
+          },
+          "properties": {
+            "vulnId": "VULN-69",
+            "cwe": "CWE-193",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln69_offbyone.c"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-787",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-70] CWE-787 (taint): attacker-sized alloca then unbounded copy"
+          },
+          "properties": {
+            "vulnId": "VULN-70",
+            "cwe": "CWE-787",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vuln70_alloca.c"
+                },
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+<title>PT AI — Multi-Language SAST Benchmark</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f6f7f6; --surface: #ffffff; --surface-2: #eef1ef;
+    --ink: #0f1315; --ink-2: #4b5257; --muted: #868d8f; --line: #e2e6e4;
+    --ptai: #2a78d6; --ptai-soft: rgba(42,120,214,.12);
+    --semgrep: #008300; --semgrep-soft: rgba(0,131,0,.12);
+    --good: #0ca30c; --warn: #d98a00; --crit: #d03b3b;
+    --r0: #9ec5f4; --r1: #5598e7; --r2: #2a78d6; --r3: #184f95;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --bg: #0d0f10; --surface: #16191a; --surface-2: #1d2122;
+      --ink: #f1f4f3; --ink-2: #b2b9b7; --muted: #7c8381; --line: #262b2c;
+      --ptai: #4c93e8; --ptai-soft: rgba(76,147,232,.16);
+      --semgrep: #2fa552; --semgrep-soft: rgba(47,165,82,.16);
+      --good: #2fb32f; --warn: #e2a53a; --crit: #e05a5a;
+      --r0: #2a5f9e; --r1: #3987e5; --r2: #5ba0ea; --r3: #86b6ef;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0d0f10; --surface: #16191a; --surface-2: #1d2122;
+    --ink: #f1f4f3; --ink-2: #b2b9b7; --muted: #7c8381; --line: #262b2c;
+    --ptai: #4c93e8; --ptai-soft: rgba(76,147,232,.16);
+    --semgrep: #2fa552; --semgrep-soft: rgba(47,165,82,.16);
+    --good: #2fb32f; --warn: #e2a53a; --crit: #e05a5a;
+    --r0: #2a5f9e; --r1: #3987e5; --r2: #5ba0ea; --r3: #86b6ef;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+    line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 24px 80px; }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  h1, h2, h3 { text-wrap: balance; line-height: 1.15; margin: 0; }
+
+  header.top { border-bottom: 1px solid var(--line); padding-bottom: 28px; margin-bottom: 36px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ptai); margin-bottom: 14px; }
+  h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 680; letter-spacing: -.02em; }
+  .lede { color: var(--ink-2); font-size: 17px; max-width: 68ch; margin-top: 14px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 26px; }
+  .stat .n { font-size: 30px; font-weight: 680; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 12.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+  section { margin-top: 48px; }
+  .sec-h { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .sec-h h2 { font-size: 22px; font-weight: 640; letter-spacing: -.01em; }
+  .sec-h .sec-n { font-family: var(--mono); color: var(--muted); font-size: 14px; }
+  .sec-sub { color: var(--ink-2); font-size: 15px; max-width: 74ch; margin-bottom: 24px; }
+
+  .legend { display: flex; gap: 20px; margin-bottom: 20px; font-size: 13.5px; color: var(--ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; }
+  .sw.ptai { background: var(--ptai); } .sw.semgrep { background: var(--semgrep); }
+
+  .lang-row { background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; margin-bottom: 12px; }
+  .lang-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .lang-name { font-weight: 640; font-size: 16px; }
+  .lang-stack { color: var(--muted); font-size: 12.5px; font-family: var(--mono); }
+  .pill { margin-left: auto; font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    letter-spacing: .02em; }
+  .pill-ptai { background: var(--ptai-soft); color: var(--ptai); }
+  .pill-semgrep { background: var(--semgrep-soft); color: var(--semgrep); }
+  .pill-warn { background: rgba(217,138,0,.14); color: var(--warn); }
+  .pill-muted { background: var(--surface-2); color: var(--muted); }
+
+  .grp { display: grid; grid-template-columns: 168px 1fr; align-items: center; gap: 14px; margin: 5px 0; }
+  .grp-lbl { font-size: 13px; color: var(--ink-2); }
+  .grp-lbl .mono { color: var(--muted); font-size: 12px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; min-height: 20px; }
+  .bar { height: 12px; border-radius: 0 4px 4px 0; min-width: 3px; transition: width .5s cubic-bezier(.2,.7,.2,1); }
+  .bar.ptai { background: var(--ptai); } .bar.semgrep { background: var(--semgrep); }
+  .bar.ramp0 { background: var(--r0); } .bar.ramp1 { background: var(--r1); }
+  .bar.ramp2 { background: var(--r2); } .bar.ramp3 { background: var(--r3); }
+  .bar-val { font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; font-weight: 600;
+    color: var(--ink); min-width: 34px; }
+  .bar-na { font-size: 12.5px; color: var(--muted); font-style: italic; }
+
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 620px; }
+  thead th { text-align: right; font-weight: 600; color: var(--ink-2); font-size: 12px; text-transform: uppercase;
+    letter-spacing: .05em; padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+  thead th:first-child { text-align: left; }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid var(--line); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.l { font-weight: 600; } td.l .sub { display: block; font-weight: 400; color: var(--muted);
+    font-size: 11.5px; font-family: var(--mono); }
+  td.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  td.num.sg { color: var(--semgrep); font-weight: 600; } td.num.dim { color: var(--muted); }
+  thead th.g { color: var(--ptai); } thead th.gg { color: var(--semgrep); }
+
+  .abl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .abl-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .abl-lang { font-weight: 640; font-size: 15px; margin-bottom: 10px; }
+  .abl-step { margin: 7px 0; } .abl-lbl { font-size: 12px; color: var(--ink-2); display: block; margin-bottom: 2px; }
+
+  .proof { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--crit);
+    border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .proof h3 { font-size: 16px; font-weight: 640; margin-bottom: 4px; }
+  .proof .p-sub { color: var(--ink-2); font-size: 13.5px; margin-bottom: 12px; }
+  pre.code { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+    overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; margin: 0; }
+  .code .ok { color: var(--good); } .code .bad { color: var(--crit); }
+  .code .cm { color: var(--muted); }
+  .tag { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 1px 7px; border-radius: 5px;
+    font-weight: 600; }
+  .tag.ok { background: rgba(12,163,12,.14); color: var(--good); }
+  .tag.bad { background: rgba(208,59,59,.14); color: var(--crit); }
+
+  .takeaways { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .tk { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .tk .icon { font-family: var(--mono); font-weight: 700; font-size: 13px; }
+  .tk.win { border-top: 3px solid var(--good); } .tk.gap { border-top: 3px solid var(--crit); }
+  .tk.cfg { border-top: 3px solid var(--warn); }
+  .tk h4 { margin: 6px 0 6px; font-size: 15px; }
+  .tk p { margin: 0; color: var(--ink-2); font-size: 13.5px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted);
+    font-size: 12.5px; }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">PT Application Inspector 6.1.1 · Engine benchmark</div>
+    <h1>How well does the SAST engine actually find vulnerabilities?</h1>
+    <p class="lede">A multi-language, exploit-verified benchmark. Every planted vulnerability builds,
+      runs and is proven exploitable in Docker; each tool's SARIF is scored against the same
+      marker-generated ground truth. The headline metric is <strong>engine (taint-class) recall</strong> —
+      the core dataflow engine, isolated from pattern-matching, configuration and dependency modules.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">7</div><div class="k">languages</div></div>
+      <div class="stat"><div class="n">8</div><div class="k">targets</div></div>
+      <div class="stat"><div class="n">180</div><div class="k">exploitable vulns</div></div>
+      <div class="stat"><div class="n">100%</div><div class="k">exploit-gated</div></div>
+      <div class="stat"><div class="n">2</div><div class="k">engines compared</div></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-h"><span class="sec-n">01</span><h2>Engine recall by language — PT AI vs Semgrep</h2></div>
+    <p class="sec-sub">Taint-class recall of each tool's core engine (PT AI <span class="mono">StaticCodeAnalysis</span>,
+      Semgrep default rules) on identical, exploit-verified sinks. The two engines are strikingly
+      <strong>complementary</strong>.</p>
+    <div class="legend"><span><span class="sw ptai"></span>PT AI engine</span>
+      <span><span class="sw semgrep"></span>Semgrep</span></div>
+    {{HERO_ROWS}}
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="sec-n">02</span><h2>Full metrics</h2></div>
+    <p class="sec-sub">Engine taint-recall (default profile), PT AI with all modules (max), Semgrep, and
+      precision. <span class="mono">JS/TS</span> is PT AI's compiled-JS figure — see the blind-spots below.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Language</th><th class="g">PT AI engine</th><th class="g">PT AI max</th>
+        <th class="gg">Semgrep</th><th>PT prec.</th><th>SG prec.</th></tr></thead>
+      <tbody>{{TABLE_ROWS}}</tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="sec-n">03</span><h2>PT AI module contribution</h2></div>
+    <p class="sec-sub">Taint-recall as scan modules are added one at a time
+      (<span class="mono">default → +PatternMatching → +Configuration → +Components/SCA</span>). PatternMatching
+      is what lifts C/C++ — the taint engine barely detects memory-safety, but signature rules catch the
+      dangerous-function usage.</p>
+    <div class="abl-grid">{{ABLATION_ROWS}}</div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="sec-n">04</span><h2>Blind spots — ironclad proofs</h2></div>
+    <p class="sec-sub">Each proof ships a <strong>positive control in the same code</strong>: a sink the engine
+      DOES flag sits beside one it misses, on the same tainted variable. That rules out a broken pipeline,
+      an unrecognised entry point, or unreachable taint — the miss is a genuine sink blind spot.</p>
+
+    <div class="proof">
+      <h3>Python SQL injection <span class="tag bad">missed by PT AI</span></h3>
+      <p class="p-sub"><span class="mono">sql-app/vulns/vuln89_combo.py</span> — one HTTP parameter, two sinks.
+        Semgrep flags the SQLi; PT AI flags only the command injection above it.</p>
+      <pre class="code"><span class="cm"># term = request.args.get("q")   ← tainted HTTP input</span>
+label = subprocess.getoutput("echo " + term)   <span class="ok">← line 18  ✓ FLAGGED (OS command injection)</span>
+cur.execute("SELECT id,name FROM products "
+            "WHERE name = '" + term + "'")      <span class="bad">← line 21  ✗ MISSED (SQL injection)</span></pre>
+    </div>
+
+    <div class="proof">
+      <h3>Cross-Site Scripting <span class="tag bad">missed by PT AI</span></h3>
+      <p class="p-sub"><span class="mono">python-web/vulns/vuln91_xss_combo.py</span> — 0 XSS findings across
+        Java, Kotlin, Python in any form (reflected, stored, attribute, JS-context). Caught only on JS.</p>
+      <pre class="code"><span class="cm"># q = request.args.get("q")   ← tainted HTTP input</span>
+label = subprocess.getoutput("echo " + q)       <span class="ok">← line 16  ✓ FLAGGED (OS command injection)</span>
+return "&lt;h3&gt;" + q + "&lt;/h3&gt;"                    <span class="bad">← line 18  ✗ MISSED (reflected XSS)</span></pre>
+    </div>
+
+    <div class="proof">
+      <h3>C / C++ memory-safety <span class="tag bad">1/19 by PT AI engine</span></h3>
+      <p class="p-sub"><span class="mono">targets/cpp</span> — 20 canonical bugs from every standard taint
+        source (argv, stdin, env, file). The engine found 3, all local <em>patterns</em> (double-free,
+        format-string, leak); every overflow / UAF / OOB / cmd / SQLi in C was missed.</p>
+      <pre class="code"><span class="ok">✓ Double Free · Format String · Memory Leak</span>   <span class="cm">(signature/pattern bugs)</span>
+<span class="bad">✗ strcpy/sprintf/read/scanf/strcat/alloca overflow, memcpy/fread heap overflow,</span>
+<span class="bad">  use-after-free, OOB read/write, off-by-one, int-overflow→OOB, system(), sqlite</span></pre>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="sec-n">05</span><h2>What this says about the engine</h2></div>
+    <div class="takeaways">
+      <div class="tk win"><span class="icon" style="color:var(--good)">STRONG</span>
+        <h4>JVM injection taint</h4><p>Java leads both tools (61%); Kotlin is PT AI-only territory —
+          Semgrep has essentially no Kotlin taint analysis.</p></div>
+      <div class="tk gap"><span class="icon" style="color:var(--crit)">BLIND</span>
+        <h4>Python SQLi · XSS · C memory-safety</h4><p>Reproducibly missed with a working positive control
+          beside them. Semgrep covers the first two; neither covers C well.</p></div>
+      <div class="tk cfg"><span class="icon" style="color:var(--warn)">CONFIG</span>
+        <h4>Scan the build output for TS</h4><p>PT AI finds 0 on TypeScript source but 42% on the compiled
+          JS. Semgrep reads <span class="mono">.ts</span> directly (58%).</p></div>
+      <div class="tk gap"><span class="icon" style="color:var(--crit)">N/A</span>
+        <h4>Native &amp; standalone SQL</h4><p>Swift and pure <span class="mono">.sql</span> (schema/procs)
+          yield 0 — outside PT AI's model. Give SQL an application taint source and it still misses the SQLi.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    Engine = <span class="mono">StaticCodeAnalysis</span> taint-class recall against marker-generated
+    ground truth. Every finding independently exploit-verified (HTTP PoC / ASAN crash). Numbers are
+    reproducible via <span class="mono">ptai/run_ablation.sh</span> + <span class="mono">checker/sast_checker.py</span>.
+    Provisional — re-verified across multiple scans.
+  </footer>
+</div>

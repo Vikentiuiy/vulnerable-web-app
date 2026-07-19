@@ -1,0 +1,943 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "vulnerable-web-app-reference",
+          "informationUri": "https://github.com/Vikentiuiy/vulnerable-web-app",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "CWE-22",
+              "name": "Path Traversal",
+              "shortDescription": {
+                "text": "Path Traversal"
+              },
+              "properties": {
+                "cwe": "CWE-22",
+                "tags": [
+                  "CWE-22"
+                ]
+              }
+            },
+            {
+              "id": "CWE-78",
+              "name": "OS Command Injection",
+              "shortDescription": {
+                "text": "OS Command Injection"
+              },
+              "properties": {
+                "cwe": "CWE-78",
+                "tags": [
+                  "CWE-78"
+                ]
+              }
+            },
+            {
+              "id": "CWE-79",
+              "name": "Cross-site Scripting",
+              "shortDescription": {
+                "text": "Cross-site Scripting"
+              },
+              "properties": {
+                "cwe": "CWE-79",
+                "tags": [
+                  "CWE-79"
+                ]
+              }
+            },
+            {
+              "id": "CWE-89",
+              "name": "SQL Injection",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "properties": {
+                "cwe": "CWE-89",
+                "tags": [
+                  "CWE-89"
+                ]
+              }
+            },
+            {
+              "id": "CWE-95",
+              "name": "Code Injection (eval)",
+              "shortDescription": {
+                "text": "Code Injection (eval)"
+              },
+              "properties": {
+                "cwe": "CWE-95",
+                "tags": [
+                  "CWE-95"
+                ]
+              }
+            },
+            {
+              "id": "CWE-117",
+              "name": "Improper Output Neutralization for Logs",
+              "shortDescription": {
+                "text": "Improper Output Neutralization for Logs"
+              },
+              "properties": {
+                "cwe": "CWE-117",
+                "tags": [
+                  "CWE-117"
+                ]
+              }
+            },
+            {
+              "id": "CWE-200",
+              "name": "Information Exposure",
+              "shortDescription": {
+                "text": "Information Exposure"
+              },
+              "properties": {
+                "cwe": "CWE-200",
+                "tags": [
+                  "CWE-200"
+                ]
+              }
+            },
+            {
+              "id": "CWE-209",
+              "name": "Information Exposure Through Error Message",
+              "shortDescription": {
+                "text": "Information Exposure Through Error Message"
+              },
+              "properties": {
+                "cwe": "CWE-209",
+                "tags": [
+                  "CWE-209"
+                ]
+              }
+            },
+            {
+              "id": "CWE-256",
+              "name": "Plaintext Storage of a Password",
+              "shortDescription": {
+                "text": "Plaintext Storage of a Password"
+              },
+              "properties": {
+                "cwe": "CWE-256",
+                "tags": [
+                  "CWE-256"
+                ]
+              }
+            },
+            {
+              "id": "CWE-312",
+              "name": "Cleartext Storage of Sensitive Information",
+              "shortDescription": {
+                "text": "Cleartext Storage of Sensitive Information"
+              },
+              "properties": {
+                "cwe": "CWE-312",
+                "tags": [
+                  "CWE-312"
+                ]
+              }
+            },
+            {
+              "id": "CWE-327",
+              "name": "Use of a Broken or Risky Cryptographic Algorithm",
+              "shortDescription": {
+                "text": "Use of a Broken or Risky Cryptographic Algorithm"
+              },
+              "properties": {
+                "cwe": "CWE-327",
+                "tags": [
+                  "CWE-327"
+                ]
+              }
+            },
+            {
+              "id": "CWE-330",
+              "name": "Use of Insufficiently Random Values",
+              "shortDescription": {
+                "text": "Use of Insufficiently Random Values"
+              },
+              "properties": {
+                "cwe": "CWE-330",
+                "tags": [
+                  "CWE-330"
+                ]
+              }
+            },
+            {
+              "id": "CWE-384",
+              "name": "Session Fixation",
+              "shortDescription": {
+                "text": "Session Fixation"
+              },
+              "properties": {
+                "cwe": "CWE-384",
+                "tags": [
+                  "CWE-384"
+                ]
+              }
+            },
+            {
+              "id": "CWE-601",
+              "name": "Open Redirect",
+              "shortDescription": {
+                "text": "Open Redirect"
+              },
+              "properties": {
+                "cwe": "CWE-601",
+                "tags": [
+                  "CWE-601"
+                ]
+              }
+            },
+            {
+              "id": "CWE-614",
+              "name": "Sensitive Cookie Without Secure/HttpOnly",
+              "shortDescription": {
+                "text": "Sensitive Cookie Without Secure/HttpOnly"
+              },
+              "properties": {
+                "cwe": "CWE-614",
+                "tags": [
+                  "CWE-614"
+                ]
+              }
+            },
+            {
+              "id": "CWE-639",
+              "name": "Authorization Bypass (IDOR)",
+              "shortDescription": {
+                "text": "Authorization Bypass (IDOR)"
+              },
+              "properties": {
+                "cwe": "CWE-639",
+                "tags": [
+                  "CWE-639"
+                ]
+              }
+            },
+            {
+              "id": "CWE-915",
+              "name": "Mass Assignment",
+              "shortDescription": {
+                "text": "Mass Assignment"
+              },
+              "properties": {
+                "cwe": "CWE-915",
+                "tags": [
+                  "CWE-915"
+                ]
+              }
+            },
+            {
+              "id": "CWE-918",
+              "name": "Server-Side Request Forgery",
+              "shortDescription": {
+                "text": "Server-Side Request Forgery"
+              },
+              "properties": {
+                "cwe": "CWE-918",
+                "tags": [
+                  "CWE-918"
+                ]
+              }
+            },
+            {
+              "id": "CWE-942",
+              "name": "Overly Permissive Cross-domain Whitelist (CORS)",
+              "shortDescription": {
+                "text": "Overly Permissive Cross-domain Whitelist (CORS)"
+              },
+              "properties": {
+                "cwe": "CWE-942",
+                "tags": [
+                  "CWE-942"
+                ]
+              }
+            },
+            {
+              "id": "CWE-1021",
+              "name": "Improper Restriction of Rendered UI Layers (Clickjacking)",
+              "shortDescription": {
+                "text": "Improper Restriction of Rendered UI Layers (Clickjacking)"
+              },
+              "properties": {
+                "cwe": "CWE-1021",
+                "tags": [
+                  "CWE-1021"
+                ]
+              }
+            },
+            {
+              "id": "CWE-1236",
+              "name": "Improper Neutralization of Formula Elements in a CSV File",
+              "shortDescription": {
+                "text": "Improper Neutralization of Formula Elements in a CSV File"
+              },
+              "properties": {
+                "cwe": "CWE-1236",
+                "tags": [
+                  "CWE-1236"
+                ]
+              }
+            },
+            {
+              "id": "CWE-1321",
+              "name": "CWE-1321",
+              "shortDescription": {
+                "text": "CWE-1321"
+              },
+              "properties": {
+                "cwe": "CWE-1321",
+                "tags": [
+                  "CWE-1321"
+                ]
+              }
+            },
+            {
+              "id": "CWE-1333",
+              "name": "Inefficient Regular Expression Complexity (ReDoS)",
+              "shortDescription": {
+                "text": "Inefficient Regular Expression Complexity (ReDoS)"
+              },
+              "properties": {
+                "cwe": "CWE-1333",
+                "tags": [
+                  "CWE-1333"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CWE-1021",
+          "ruleIndex": 19,
+          "level": "error",
+          "message": {
+            "text": "[VULN-35] CWE-1021 (config): no X-Frame-Options / CSP frame-ancestors set anywhere -> clickjacking"
+          },
+          "properties": {
+            "vulnId": "VULN-35",
+            "cwe": "CWE-1021",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/app.ts"
+                },
+                "region": {
+                  "startLine": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-256",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "[VULN-19] CWE-256 (config): passwords stored as unsalted MD5"
+          },
+          "properties": {
+            "vulnId": "VULN-19",
+            "cwe": "CWE-256",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/store.ts"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-312",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "text": "[VULN-20] CWE-312 (config): secret_answer kept in cleartext"
+          },
+          "properties": {
+            "vulnId": "VULN-20",
+            "cwe": "CWE-312",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/store.ts"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "[VULN-01] CWE-89 (taint): SQL injection in product search"
+          },
+          "properties": {
+            "vulnId": "VULN-01",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln01_sqli.ts"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "[VULN-02] CWE-89 (taint): SQL injection in authentication (login bypass)"
+          },
+          "properties": {
+            "vulnId": "VULN-02",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln02_sqli_login.ts"
+                },
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-03] CWE-79 (taint): reflected XSS: input echoed into HTML unescaped"
+          },
+          "properties": {
+            "vulnId": "VULN-03",
+            "cwe": "CWE-79",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln03_reflected_xss.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-79",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "[VULN-04] CWE-79 (taint): stored XSS: persisted bio rendered unescaped"
+          },
+          "properties": {
+            "vulnId": "VULN-04",
+            "cwe": "CWE-79",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln04_stored_xss.ts"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-78",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-05] CWE-78 (taint): OS command injection — host concatenated into a shell command"
+          },
+          "properties": {
+            "vulnId": "VULN-05",
+            "cwe": "CWE-78",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln05_cmd.ts"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-22",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "[VULN-06] CWE-22 (taint): path traversal — user input concatenated into a filesystem path"
+          },
+          "properties": {
+            "vulnId": "VULN-06",
+            "cwe": "CWE-22",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln06_path.ts"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-918",
+          "ruleIndex": 17,
+          "level": "error",
+          "message": {
+            "text": "[VULN-10] CWE-918 (taint): SSRF — server fetches an arbitrary user-supplied URL"
+          },
+          "properties": {
+            "vulnId": "VULN-10",
+            "cwe": "CWE-918",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln10_ssrf.ts"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-200",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "[VULN-11] CWE-200 (logic): sensitive data (SSN) returned to any caller"
+          },
+          "properties": {
+            "vulnId": "VULN-11",
+            "cwe": "CWE-200",
+            "dclass": "logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln11_ssn.ts"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-639",
+          "ruleIndex": 15,
+          "level": "error",
+          "message": {
+            "text": "[VULN-12] CWE-639 (logic): IDOR — no authorization check tying the session to id"
+          },
+          "properties": {
+            "vulnId": "VULN-12",
+            "cwe": "CWE-639",
+            "dclass": "logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln12_idor.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-327",
+          "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "[VULN-13] CWE-327 (pattern): broken/weak hash (MD5) used for passwords"
+          },
+          "properties": {
+            "vulnId": "VULN-13",
+            "cwe": "CWE-327",
+            "dclass": "pattern"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln13_hash.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-209",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "[VULN-16] CWE-209 (logic): full error/stack returned to the client"
+          },
+          "properties": {
+            "vulnId": "VULN-16",
+            "cwe": "CWE-209",
+            "dclass": "logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln16_verbose.ts"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-614",
+          "ruleIndex": 14,
+          "level": "error",
+          "message": {
+            "text": "[VULN-17] CWE-614 (config): auth cookie set without HttpOnly/Secure flags"
+          },
+          "properties": {
+            "vulnId": "VULN-17",
+            "cwe": "CWE-614",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln17_cookie.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-330",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "text": "[VULN-18] CWE-330 (pattern): predictable token from Math.random (not cryptographically secure)"
+          },
+          "properties": {
+            "vulnId": "VULN-18",
+            "cwe": "CWE-330",
+            "dclass": "pattern"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln18_token.ts"
+                },
+                "region": {
+                  "startLine": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-601",
+          "ruleIndex": 13,
+          "level": "error",
+          "message": {
+            "text": "[VULN-24] CWE-601 (taint): open redirect — unvalidated redirect target"
+          },
+          "properties": {
+            "vulnId": "VULN-24",
+            "cwe": "CWE-601",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln24_redirect.ts"
+                },
+                "region": {
+                  "startLine": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-915",
+          "ruleIndex": 16,
+          "level": "error",
+          "message": {
+            "text": "[VULN-29] CWE-915 (logic): mass assignment — caller-controlled role bound directly"
+          },
+          "properties": {
+            "vulnId": "VULN-29",
+            "cwe": "CWE-915",
+            "dclass": "logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln29_mass_assign.ts"
+                },
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-95",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "[VULN-32] CWE-95 (taint): code injection — user input passed to eval()"
+          },
+          "properties": {
+            "vulnId": "VULN-32",
+            "cwe": "CWE-95",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln32_eval.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-1236",
+          "ruleIndex": 20,
+          "level": "error",
+          "message": {
+            "text": "[VULN-33] CWE-1236 (taint): user data written into CSV without neutralising formulas"
+          },
+          "properties": {
+            "vulnId": "VULN-33",
+            "cwe": "CWE-1236",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln33_csv.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-942",
+          "ruleIndex": 18,
+          "level": "error",
+          "message": {
+            "text": "[VULN-34] CWE-942 (config): arbitrary Origin reflected + credentials allowed"
+          },
+          "properties": {
+            "vulnId": "VULN-34",
+            "cwe": "CWE-942",
+            "dclass": "config"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln34_cors.ts"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-1333",
+          "ruleIndex": 22,
+          "level": "error",
+          "message": {
+            "text": "[VULN-38] CWE-1333 (logic): catastrophically-backtracking regex applied to user input"
+          },
+          "properties": {
+            "vulnId": "VULN-38",
+            "cwe": "CWE-1333",
+            "dclass": "logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln38_redos.ts"
+                },
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-117",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "[VULN-39] CWE-117 (taint): user input logged without neutralising CR/LF"
+          },
+          "properties": {
+            "vulnId": "VULN-39",
+            "cwe": "CWE-117",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln39_log.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-384",
+          "ruleIndex": 12,
+          "level": "error",
+          "message": {
+            "text": "[VULN-40] CWE-384 (logic): session id taken from the request and set as-is"
+          },
+          "properties": {
+            "vulnId": "VULN-40",
+            "cwe": "CWE-384",
+            "dclass": "logic"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln40_session.ts"
+                },
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-1321",
+          "ruleIndex": 21,
+          "level": "error",
+          "message": {
+            "text": "[VULN-43] CWE-1321 (taint): prototype pollution — recursive merge of attacker-controlled keys"
+          },
+          "properties": {
+            "vulnId": "VULN-43",
+            "cwe": "CWE-1321",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/vulns/vuln43_proto_pollution.ts"
+                },
+                "region": {
+                  "startLine": 12
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
