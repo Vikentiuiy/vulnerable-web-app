@@ -46,7 +46,9 @@ compiled `.js`** of the same code (PatternMatching still regex-scans `.ts`). So 
 target must be scanned as its **build output** for a fair engine measurement:
 
 ```bash
-docker cp vuln-jsts-web:/app/dist ./dist-scan      # then scan ./dist-scan as JavaScript
+./build-dist.sh          # compiles src/ -> dist/ (locally via tsc, or via Docker+docker cp),
+                         # then scan dist/ as JavaScript (ProgrammingLanguages: ["JavaScript"],
+                         # --excludes "**/harness/**"). Engine: 42% vs 0% on the .ts source.
 ```
 
 Semgrep, by contrast, reads `.ts` directly (58%). See
