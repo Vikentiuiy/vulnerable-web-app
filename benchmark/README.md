@@ -50,7 +50,8 @@ Taint-recall as modules are switched on one at a time
 | Java     | 61% | 61% | 61% | 61% |
 | Python   | 40% | 50% | 40% | 50% |
 | Kotlin   | 33% | 33% | 33% | 33% |
-| JS/TS (`.ts`) | 0% | 8% | 0% | 8% |
+| JS/TS (`.ts` source) | 0% | 8% | 0% | 8% |
+| JS/TS (**compiled `.js`**) | **42%** | **50%** | 42% | 50% |
 | **C/C++** | **5%** | **84%** | 5% | **84%** |
 | SQL-app  | 15% | 15% | 15% | 15% |
 | SQL (standalone) | 0% | 0% | 0% | 0% |
@@ -68,6 +69,19 @@ Taint-recall as modules are switched on one at a time
   are engine blind spots that no module covers.
 - `max` also adds `Components/SCA` dependency findings — a separate axis, excluded
   from the code-recall figures above.
+
+### `.ts` source vs compiled `.js` — why it matters for a SAST
+
+The same code scores **0% on `.ts`** but **42% on the `.js`** `tsc` emits. In short:
+
+- **TypeScript is a superset of JS** — type annotations, `import`/`export`, enums,
+  decorators. PT AI's engine models **JavaScript** (the runtime language); without a
+  full TS front-end it doesn't run *dataflow* on `.ts` (only pattern rules apply), so
+  taint tracking effectively doesn't happen → ~0.
+- **`tsc` erases the types** and lowers modules/enums/decorators to plain ES `.js` the
+  engine fully understands — the *same logic* becomes analysable, so the sinks light up.
+- **Takeaway:** scan the **build output** (`dist/`) of a TS project with PT AI, not the
+  `.ts` source. (Semgrep has a native TS parser and reads `.ts` directly — 58%.)
 
 ## 3. PT AI engine vs Semgrep — complementary
 
