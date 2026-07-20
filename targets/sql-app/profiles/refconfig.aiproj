@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json.schemastore.org/aiproj-1.9.json",
+  "Version": "1.9",
+  "ProjectName": "vuln-sql-app-refconfig",
+  "ProgrammingLanguages": [
+    "Php",
+    "Java",
+    "JavaScript",
+    "Sql",
+    "CAndCPlusPlus",
+    "ObjectiveC",
+    "Swift",
+    "Python",
+    "Kotlin",
+    "Ruby",
+    "CSharp (Windows, Linux)",
+    "Solidity",
+    "Scala"
+  ],
+  "ScanModules": [
+    "StaticCodeAnalysis"
+  ],
+  "ApplyAllPMRules": false,
+  "UseSecurityPolicies": false,
+  "SkipGitIgnoreFiles": false,
+  "DotNetSettings": {
+    "ProjectType": "None",
+    "SolutionFile": "",
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": false,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "JavaScriptSettings": {
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": false,
+    "UseTaintAnalysis": true,
+    "UseJsaAnalysis": true,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "JavaSettings": {
+    "Parameters": "",
+    "UnpackUserPackages": false,
+    "UserPackagePrefixes": "",
+    "Version": "21",
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": false,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "PhpSettings": {
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": false,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "PmTaintSettings": {
+    "UsePublicAnalysisMethod": true,
+    "CustomParameters": "",
+    "PMGroups": []
+  },
+  "PythonSettings": {
+    "UsePublicAnalysisMethod": true,
+    "DownloadDependencies": false,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "RubySettings": {
+    "UsePublicAnalysisMethod": true,
+    "CustomParameters": "",
+    "DslRulesRelativePath": ""
+  },
+  "PygrepSettings": {
+    "CustomParameters": ""
+  }
+}

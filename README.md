@@ -25,6 +25,7 @@ targets/            one self-contained, independently-scannable target per langu
 checker/            shared, tool-agnostic: build_reference.py + sast_checker.py
 ptai/               shared PT AI automation: scan.sh, run_ablation.sh, compare_profiles.py
 docs/               methodology + guides
+benchmark/          COMMITTED pre-computed results (CSV, SARIFs, report, conclusions)
 ```
 
 ## The target contract
