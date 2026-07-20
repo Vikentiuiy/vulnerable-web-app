@@ -1,7 +1,7 @@
 # Benchmark results — PT Application Inspector taint-engine capabilities
 
 Pre-computed, committed results so you can read the numbers without running a scan.
-Every figure here is reproducible with `ptai/run_ablation.sh` + `checker/sast_checker.py`
+Every figure here is reproducible with `ptai/run_ablation.sh` + `checker/sast_checker.py`. Profiles are documented in [`../docs/scan-profiles.md`](../docs/scan-profiles.md)
 against the exploit-verified fixtures in `targets/`.
 
 | File | What |
@@ -32,10 +32,10 @@ customer's own default config (`refconfig`, the `b63d419a` settings you provided
 | Python   | **40%** (8/20)  | 85% |
 | Kotlin   | **33%** (5/15)  | 0%  |
 | JS/TS    | **0%** on `.ts` · **42%** on compiled JS | 58% (`.ts`) |
-| SQL-app  | **25%** (2/8)   | 88% |
+| SQL-app  | **15%** (2/13)  | 88% |
 | C/C++    | **5%** (1/19)   | 5%  |
 | SQL (standalone) | **0%** | — |
-| Swift    | **0%** (0/7)    | — |
+| Swift    | **0%** (0/9)    | — |
 
 > **`refconfig` ≡ `default` on all 8 targets.** Your customer config and the pure
 > taint engine are the same measurement — trimming unused languages changes nothing.
@@ -52,13 +52,19 @@ Taint-recall as modules are switched on one at a time
 | Kotlin   | 33% | 33% | 33% | 33% |
 | JS/TS (`.ts`) | 0% | 8% | 0% | 8% |
 | **C/C++** | **5%** | **84%** | 5% | **84%** |
-| SQL-app  | 25% | 25% | 25% | 25% |
+| SQL-app  | 15% | 15% | 15% | 15% |
+| SQL (standalone) | 0% | 0% | 0% | 0% |
+| Swift    | 0% | 0% | 0% | 0% |
+
+> `sql` and `swift` are **0 across every module** — the files upload but the engine
+> flags nothing (no recognised taint source in pure `.sql`; no working Swift analysis
+> on this stand).
 
 - **PatternMatching is what rescues C/C++** (5% → 84%): the taint engine barely
   reasons about memory, but the signature rules catch the dangerous-function usage
   (`strcpy`/`sprintf`/`memcpy`/…). *PT AI does find C bugs — via PM, not dataflow.*
 - **Configuration adds nothing** on these fixtures.
-- **PatternMatching does NOT rescue Python SQLi/XSS** (SQL-app stays 25%): those
+- **PatternMatching does NOT rescue Python SQLi/XSS** (SQL-app stays 15%): those
   are engine blind spots that no module covers.
 - `max` also adds `Components/SCA` dependency findings — a separate axis, excluded
   from the code-recall figures above.
@@ -70,7 +76,7 @@ The two engines cover **different** ground:
 - **PT AI leads** on JVM injection: Java (61 vs 56) and Kotlin (33 vs **0** — Semgrep
   has essentially no Kotlin taint analysis).
 - **Semgrep leads** exactly where PT AI is blind: Python SQLi/XSS (85 vs 40), the
-  SQL-app SQLi (88 vs 25), and TypeScript read directly (58 vs 0 on `.ts`).
+  SQL-app SQLi (88 vs 15), and TypeScript read directly (58 vs 0 on `.ts`).
 - **Both weak** on C memory-safety at the engine level (~5%).
 
 ## 4. Engine blind spots — ironclad proofs
@@ -81,7 +87,7 @@ artifact (see `sarif/` and the `*_combo` files under `targets/`):
 
 - **Python SQL injection** — `sql-app/vulns/vuln89_combo.py`: `subprocess.getoutput`
   (line 18) is flagged; `cursor.execute` (line 21) on the same `term` is missed.
-  5 SQLi variants (concat, f-string, `.format`, login, stored-proc) all missed.
+  10 SQLi variants (concat, login, stored-proc, f-string, `.format`, ORDER BY, numeric, LIKE, UPDATE, IN) all missed.
 - **Cross-Site Scripting** — `python-web/vulns/vuln91_xss_combo.py`: command
   injection (line 16) flagged; reflected HTML (line 18) on the same `q` missed. XSS
   is missed in every form on Java/Kotlin/Python (0 findings); caught only on JS.

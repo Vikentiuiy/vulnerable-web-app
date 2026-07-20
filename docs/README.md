@@ -3,6 +3,7 @@
 - [`benchmark-methodology.md`](benchmark-methodology.md) — **how we measure**:
   detection-class taxonomy, engine-first scoring, scan profiles, the scoring-
   corruption fixes, and the cross-language results.
+- [`scan-profiles.md`](scan-profiles.md) — what each PT AI scan config/profile means (default, refconfig, pm, config, max) and their exact parameters.
 - [`architecture.md`](architecture.md) — monorepo layout, the target contract, the
   1:1 design rules, and the target/port map.
 - [`exploitation-guide.md`](exploitation-guide.md) — how each target is exploited

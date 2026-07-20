@@ -279,6 +279,31 @@
           ]
         },
         {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-86] CWE-89 (taint): SQL injection in an ORDER BY clause (non-quotable context)"
+          },
+          "properties": {
+            "vulnId": "VULN-86",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln86_orderby.py"
+                },
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CWE-78",
           "ruleIndex": 0,
           "level": "error",
@@ -298,6 +323,31 @@
                 },
                 "region": {
                   "startLine": 15
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-88] CWE-89 (taint): SQL injection in a numeric context (no quotes around the value)"
+          },
+          "properties": {
+            "vulnId": "VULN-88",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln88_numeric.py"
+                },
+                "region": {
+                  "startLine": 9
                 }
               }
             }
@@ -348,6 +398,81 @@
                 },
                 "region": {
                   "startLine": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-92] CWE-89 (taint): SQL injection inside a LIKE pattern"
+          },
+          "properties": {
+            "vulnId": "VULN-92",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln92_like.py"
+                },
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-93] CWE-89 (taint): SQL injection in an UPDATE statement (both values concatenated)"
+          },
+          "properties": {
+            "vulnId": "VULN-93",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln93_update.py"
+                },
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CWE-89",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[VULN-94] CWE-89 (taint): SQL injection inside an IN (...) list"
+          },
+          "properties": {
+            "vulnId": "VULN-94",
+            "cwe": "CWE-89",
+            "dclass": "taint"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "vulns/vuln94_inclause.py"
+                },
+                "region": {
+                  "startLine": 9
                 }
               }
             }

@@ -26,6 +26,16 @@ def install(app):
                     TRACKER.mark("VULN-85", "str.format SQLi payload")
                 if path.startswith("/vuln87") and re.search(r"[;|&`$]", _p("host") or ""):
                     TRACKER.mark("VULN-87", "command injection (control)")
+                if path.startswith("/vuln86") and re.search(r"(?i)(select|union|--|\(|;| )", _p("col") or ""):
+                    TRACKER.mark("VULN-86", "ORDER BY SQLi payload")
+                if path.startswith("/vuln88") and re.search(r"(?i)(select|union|--|or |'| )", _p("id") or ""):
+                    TRACKER.mark("VULN-88", "numeric-context SQLi payload")
+                if path.startswith("/vuln92") and re.search(r"(?i)(union|select|--|')", _p("name") or ""):
+                    TRACKER.mark("VULN-92", "LIKE SQLi payload")
+                if path.startswith("/vuln93") and re.search(r"(?i)(union|select|--|')", (_p("name") or "") + (_p("id") or "")):
+                    TRACKER.mark("VULN-93", "UPDATE SQLi payload")
+                if path.startswith("/vuln94") and re.search(r"(?i)(union|select|--|')", _p("ids") or ""):
+                    TRACKER.mark("VULN-94", "IN-list SQLi payload")
                 if path.startswith("/vuln89"):
                     t = _p("term") or ""
                     if re.search(r"(?i)(union|select|--|')", t):

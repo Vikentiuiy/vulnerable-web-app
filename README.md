@@ -19,9 +19,9 @@ targets/            one self-contained, independently-scannable target per langu
   python-web/       Python (Flask + SQLite)                 [done: 33 vulns]
   jsts-web/         Node/Express + TypeScript               [done: 25 vulns]
   sql/              MySQL schema + stored-proc weaknesses   [done: 7 vulns]
-  sql-app/          Flask + MySQL (SQL taint via HTTP)       [done: 11 vulns]
+  sql-app/          Flask + MySQL (SQL taint via HTTP)       [done: 16 vulns]
   cpp/              native ASAN-verified memory-safety bugs [done: 20 vulns]
-  swift/            Swift (Vapor)                           [done: 13 vulns]
+  swift/            Swift (Vapor)                           [done: 20 vulns]
 checker/            shared, tool-agnostic: build_reference.py + sast_checker.py
 ptai/               shared PT AI automation: scan.sh, run_ablation.sh, compare_profiles.py
 docs/               methodology + guides
@@ -59,8 +59,8 @@ passing PoC, and (4) is in sync across marker ⟷ exploit ⟷ catalog.
 | `kotlin-web` | Spring Boot + H2          | 8081 | `31/31` HTTP |
 | `python-web` | Flask + SQLite            | 8082 | `33/33` HTTP |
 | `jsts-web`   | Node/Express + TypeScript | 8083 | `25/25` HTTP |
-| `swift`      | Vapor                     | 8084 | `13/13` HTTP |
-| `sql-app`    | Flask + MySQL             | 8085 | `11/11` HTTP + DB |
+| `swift`      | Vapor                     | 8084 | `20/20` HTTP |
+| `sql-app`    | Flask + MySQL             | 8085 | `16/16` HTTP + DB |
 | `sql`        | MySQL schema + procs      | 3307 | `7/7` DB |
 | `cpp`        | native C + ASAN           | —    | `20/20` ASAN |
 
