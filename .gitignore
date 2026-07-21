@@ -20,3 +20,6 @@ vuln.db
 *.jar
 *.zip
 .gradle/
+
+# distributed PT AI CLI (see ptai-sast/)
+!ptai-sast/ptai-cli-plugin.jar

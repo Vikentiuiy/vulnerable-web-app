@@ -26,6 +26,7 @@ checker/            shared, tool-agnostic: build_reference.py + sast_checker.py
 ptai/               shared PT AI automation: scan.sh, run_ablation.sh, compare_profiles.py
 docs/               methodology + guides
 benchmark/          COMMITTED pre-computed results (CSV, SARIFs, report, conclusions)
+ptai-sast/          standalone PT AI CLI wrapper (jar + script.sh) — scan an archive anywhere
 ```
 
 ## The target contract
